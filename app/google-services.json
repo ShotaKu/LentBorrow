@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "955397077826",
+    "firebase_url": "https://lentborrow.firebaseio.com",
+    "project_id": "lentborrow",
+    "storage_bucket": "lentborrow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955397077826:android:9ff4323450869590",
+        "android_client_info": {
+          "package_name": "lentborrow.cs3231.com.lentborrow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955397077826-4mh4g1psbqjch7gac3mdujlkn90hs91o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATQ8WbGRih5ahdYIca4xaTGT_XuLn3Lz0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
