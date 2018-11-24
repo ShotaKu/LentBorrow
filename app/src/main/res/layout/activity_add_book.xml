@@ -66,13 +66,15 @@
                 android:id="@+id/category_addBook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:entries="@array/categoryList"/>
 
             <Spinner
                 android:id="@+id/tradeType_addBook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:entries="@array/tradeTypeList"/>
 
             <EditText
                 android:id="@+id/tradeAt_addBook"

@@ -67,10 +67,10 @@ class AddBookActivity : AppCompatActivity() {
     }
 
     fun onClickPost(view: View){
-        val bookNameTv = bookName_addBook
-        val categorySpr = category_addBook
-        val tradeAtTv = tradeAt_addBook
-        val tradeTypeSpr = tradeType_addBook
+        val bookNameTv = bookName_addBook.text.toString()
+        val categorySpr = category_addBook.selectedItem.toString()
+        val tradeAtTv = tradeAt_addBook.text.toString()
+        val tradeTypeSpr = tradeType_addBook.selectedItem.toString()
         var lvCon = LocalValueController(this)
         val userID = lvCon.getID();
 
@@ -79,24 +79,24 @@ class AddBookActivity : AppCompatActivity() {
         //val
 
         if(dataPath != null){
-            val progressBar = ProgressBar(this)
-            //val uploader = null
-            fsCon.setFile(dataPath!!,{ uploader ->
-                Toast.makeText(this,"Upload Finish!!",Toast.LENGTH_LONG);
-                val imageURL = uploader.downloadURL.toString();
-                Log.d("Debug", imageURL)
-//                var newBook = Book(categorySpr.selectedItem.toString()
-//                ,imageURL,false,false,userID,tradeAtTv.text.toString()
-//                ,bookNameTv.text.toString(),"N/A",tradeTypeSpr.selectedItem.toString())
-                var newBook = Book("comic"
-                        ,imageURL,false,false,userID,"test place"
-                        ,"Test","N/A","for trading")
-                newBook = bCon.create(newBook,userID);
-            },{exeption ->
-                Toast.makeText(this,"Upload Failed cause by " +exeption.message ,Toast.LENGTH_LONG);
-            },{progress ->
-                progressBar.progress = progress.toInt();
-            })
+//            val progressBar = ProgressBar(this)
+//            //val uploader = null
+//            fsCon.setFile(dataPath!!,{ uploader ->
+//                Toast.makeText(this,"Upload Finish!!",Toast.LENGTH_LONG);
+//                val imageURL = uploader.downloadURL.toString();
+//                Log.d("Debug", imageURL)
+////                var newBook = Book(categorySpr.selectedItem.toString()
+////                ,imageURL,false,false,userID,tradeAtTv.text.toString()
+////                ,bookNameTv.text.toString(),"N/A",tradeTypeSpr.selectedItem.toString())
+//                var newBook = Book("comic"
+//                        ,imageURL,false,false,userID,"test place"
+//                        ,"Test","N/A","for trading")
+//                newBook = bCon.create(newBook,userID);
+//            },{exeption ->
+//                Toast.makeText(this,"Upload Failed cause by " +exeption.message ,Toast.LENGTH_LONG);
+//            },{progress ->
+//                progressBar.progress = progress.toInt();
+//            })
         }
 //
     }
