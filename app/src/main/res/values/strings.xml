@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">LentBorrow</string>
     <!--<string name="title_activity_your_book">YourBookActivity</string>-->
+    <string-array name="list">
+        <item>for</item>
+        <item>B型</item>
+        <item>O型</item>
+        <item>AB型</item>
+    </string-array>
 </resources>
