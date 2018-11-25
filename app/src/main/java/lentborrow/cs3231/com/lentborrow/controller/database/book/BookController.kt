@@ -57,7 +57,7 @@ class BookController(): DatabaseController(){
                 ,failedCallback)
     }
 
-    final fun snapShotBookAdapter(snapShot: DataSnapshot):Book{
+    private final fun snapShotBookAdapter(snapShot: DataSnapshot):Book{
         val id = snapShot.key.toString();
         val category = snapShot.child("category").value.toString()
         val imageURL = snapShot.child("image").value.toString()
@@ -72,7 +72,7 @@ class BookController(): DatabaseController(){
                 , lentBy, locate, name, requester, tradeType)
     }
 
-    fun snapShotBookAdapter(snapShots: ArrayList<DataSnapshot>): ArrayList<Book> {
+    private fun snapShotBookAdapter(snapShots: ArrayList<DataSnapshot>): ArrayList<Book> {
         val list = ArrayList<Book>()
         for (snapShot in snapShots){
             list.add(snapShotBookAdapter(snapShot))

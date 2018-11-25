@@ -23,10 +23,9 @@ class UserDetailActivity : AppCompatActivity() {
 
         val id = intent.getStringExtra("userID")
         if (id.isEmpty()) {
-            //@TODO
-            val email = lCon.getEmail()
-            if (!email.isEmpty()) {
-                uCon.getUserByEmail(email, { user ->
+            val userID = lCon.getID()
+            if (!userID.isEmpty()) {
+                uCon.getUserByID(userID, { user ->
                     run {
                         setUser(user)
                     }
@@ -51,7 +50,7 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     fun setUser(user: User) {
-        //@TODO
+        //@TODO User review
         userName_userDetail.setText(user.userName);
         val bCon = BookController()
         bCon.getBooksByIDs(ArrayList(user.lending), { books ->

@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun logOut(){
-        //@TODO check here
         val lCon = LoginController();
         lCon.logOut();
         val lvCon = LocalValueController(this)
