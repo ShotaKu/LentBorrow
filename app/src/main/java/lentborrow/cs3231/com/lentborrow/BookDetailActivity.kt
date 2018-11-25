@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.Image
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -17,6 +18,7 @@ import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationCon
 import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
+import lentborrow.cs3231.com.lentborrow.generic.ImageDownloader
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
 import java.util.*
 import kotlin.collections.ArrayList
@@ -61,7 +63,8 @@ class BookDetailActivity : AppCompatActivity() {
         tradeAt_detail.text = "Trade at " + book.locate;
         bookOwner_detail.text = "See book owner"
         ownerID = book.lentBy;
-        downloadImage(book.imageURL);
+        val iDown = ImageDownloader(book.imageURL,bookImage_detail)
+        iDown.startDownload()
     }
 
     var ownerID = "";
@@ -80,32 +83,6 @@ class BookDetailActivity : AppCompatActivity() {
             setTradeOnTimePicker()
         }
     }
-
-    fun downloadImage(imageURL:String){
-        DownloadImageTask(bookImage_detail)
-                .execute(imageURL);
-    }
-
-    private class DownloadImageTask(internal var bmImage: ImageView) : AsyncTask<String, Void, Bitmap>() {
-
-        override fun doInBackground(vararg urls: String): Bitmap? {
-            val urldisplay = urls[0]
-            var mIcon11: Bitmap? = null
-            try {
-                val `in` = java.net.URL(urldisplay).openStream()
-                mIcon11 = BitmapFactory.decodeStream(`in`)
-            } catch (e: Exception) {
-                Log.e("Error", e.message)
-                e.printStackTrace()
-            }
-            return mIcon11
-        }
-
-        override fun onPostExecute(result: Bitmap) {
-            bmImage.setImageBitmap(result)
-        }
-    }
-
     fun toUserDetail(view: View){
         if(showedBook != null){
             ActivityMigrationController().setUserDetail(this).pass("userID",showedBook!!.lentBy).go()
