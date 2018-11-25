@@ -18,6 +18,7 @@ import android.util.Log
 import android.widget.ProgressBar
 import android.widget.Toast
 import lentborrow.cs3231.com.lentborrow.R.id.image
+import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import java.io.IOException
 
@@ -79,24 +80,28 @@ class AddBookActivity : AppCompatActivity() {
         //val
 
         if(dataPath != null){
-//            val progressBar = ProgressBar(this)
-//            //val uploader = null
-//            fsCon.setFile(dataPath!!,{ uploader ->
-//                Toast.makeText(this,"Upload Finish!!",Toast.LENGTH_LONG);
-//                val imageURL = uploader.downloadURL.toString();
-//                Log.d("Debug", imageURL)
-////                var newBook = Book(categorySpr.selectedItem.toString()
-////                ,imageURL,false,false,userID,tradeAtTv.text.toString()
-////                ,bookNameTv.text.toString(),"N/A",tradeTypeSpr.selectedItem.toString())
-//                var newBook = Book("comic"
-//                        ,imageURL,false,false,userID,"test place"
-//                        ,"Test","N/A","for trading")
-//                newBook = bCon.create(newBook,userID);
-//            },{exeption ->
-//                Toast.makeText(this,"Upload Failed cause by " +exeption.message ,Toast.LENGTH_LONG);
-//            },{progress ->
-//                progressBar.progress = progress.toInt();
-//            })
+            val progressBar = progressBar
+            val bl = blocker
+            progressBar.visibility = View.VISIBLE
+            bl.visibility = View.VISIBLE
+            //val uploader = null
+            fsCon.setFile(dataPath!!,{ uploader ->
+                Toast.makeText(this,"Upload Finish!!",Toast.LENGTH_LONG);
+                val imageURL = uploader.downloadURL.toString();
+                Log.d("Debug", imageURL)
+                var newBook = Book(categorySpr
+                        ,imageURL,false,false,userID,tradeAtTv
+                        ,bookNameTv,"N/A",tradeTypeSpr)
+                newBook = bCon.create(newBook,userID);
+                ActivityMigrationController().setUserBook(this).go()
+            },{exeption ->
+                Toast.makeText(this,"Upload Failed cause by " +exeption.message ,Toast.LENGTH_LONG);
+            },{progress ->
+                progressBar.progress = progress.toInt();
+            })
+        }
+        else{
+            Toast.makeText(this,"Please select book image!",Toast.LENGTH_LONG);
         }
 //
     }

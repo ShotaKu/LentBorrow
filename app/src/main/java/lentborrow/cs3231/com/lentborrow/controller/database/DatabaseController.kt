@@ -37,6 +37,7 @@ open class DatabaseController(){
         val myRef = database.getReference(path)
         myRef.setValue(value);
     }
+
     fun pushObject(path:String,value: DatabaseForm, withPath:Boolean = true):String{
         val myRef = database.getReference(path)
         val userPath:DatabaseReference = myRef.push()
@@ -46,12 +47,14 @@ open class DatabaseController(){
         else
             return userPath.key!!
     }
+
     protected fun pushString(path:String,value: String):String{
         val myRef = database.getReference(path)
         val userPath:DatabaseReference = myRef.push()
         setObject(path+ "/" + userPath.key!!,value);
         return path + userPath.key!!
     }
+
     fun find(path:String, searchCallback: (snapShot:DataSnapshot) -> Boolean
              , successCallback: (snapShot:ArrayList<DataSnapshot>) -> Unit   // Unit = void
              , notFoundCallback:(error: DatabaseError) -> Unit){
@@ -77,6 +80,7 @@ open class DatabaseController(){
             }
         })
     }
+
     fun finds(path:String, searchCallback: (snapShot:DataSnapshot) -> Boolean
              , successCallback: (snapShot:DataSnapshot) -> Unit   // Unit = void
              , notFoundCallback:(error: DatabaseError) -> Unit){
