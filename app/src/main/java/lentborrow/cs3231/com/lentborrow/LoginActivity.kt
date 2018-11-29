@@ -86,9 +86,11 @@ class LoginActivity : AppCompatActivity() {
                 lvCon.setPassword(password);
                 val uCon = UserController()
                 uCon.getUserByEmail(email,{ user -> run{
-                    //@TODO go to Request box activity
+                    //@TODO go to Trade Schedule
                     lvCon.setID(user.userID)
                     val amCon = ActivityMigrationController();
+                    amCon.setRequestBoxActivity(this)
+                            .pass("status","waiting").go()
 //                    amCon.setRequestBoxActivity(this)
 //                            .pass("email",email)
 //                            .go()

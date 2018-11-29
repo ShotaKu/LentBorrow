@@ -47,7 +47,10 @@ class RegistrationActivity : AppCompatActivity() {
                                 lvCon.setPassword(pass);
                                 lvCon.setID(user.userID);
                                 mCon.showToast("Hi," + email);
-                                //@TODO go to Request box activity
+                                //@TODO go to Trade Schedule
+                                val amCon = ActivityMigrationController();
+                                amCon.setRequestBoxActivity(this)
+                                        .pass("status","waiting").go()
                             }
                             , fun(task: Task<AuthResult>) {
                         //Failed

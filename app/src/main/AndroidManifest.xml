@@ -3,8 +3,8 @@
     package="lentborrow.cs3231.com.lentborrow">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +29,8 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".UserBookActivity" />
-        <activity android:name=".AddBookActivity"></activity>
+        <activity android:name=".AddBookActivity" />
+        <activity android:name=".RequestLogActivity"></activity>
     </application>
 
 </manifest>
