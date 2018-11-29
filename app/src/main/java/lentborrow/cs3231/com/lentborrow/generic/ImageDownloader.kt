@@ -3,6 +3,7 @@ package lentborrow.cs3231.com.lentborrow.generic
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
+import android.support.v4.print.PrintHelper
 import android.util.Log
 import android.widget.ImageView
 
@@ -16,11 +17,11 @@ class ImageDownloader(imageURL:String, imageView:ImageView){
         this.imageView = imageView;
     }
 
-    fun startDownload(){
-        downloadImageTask(imageView!!).execute(imageURL);
+    fun startDownload(finishCallback:(() ->Unit)? = null){
+        downloadImageTask(imageView!!,finishCallback).execute(imageURL);
     }
 
-    private class downloadImageTask(internal var bmImage: ImageView)
+    private class downloadImageTask(internal var bmImage: ImageView, val finishCallback:(() ->Unit)?)
         : AsyncTask<String, Void, Bitmap>() {
 
         override fun doInBackground(vararg urls: String): Bitmap? {
@@ -38,6 +39,8 @@ class ImageDownloader(imageURL:String, imageView:ImageView){
 
         override fun onPostExecute(result: Bitmap) {
             bmImage.setImageBitmap(result)
+            if(finishCallback != null)
+                run {finishCallback!!()}
         }
     }
 

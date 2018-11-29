@@ -14,6 +14,10 @@ class BookController(): DatabaseController(){
         return book;
     }
 
+    fun change(book: Book){
+        setObject("Book/"+book.id,book.getDatabaseForm())
+    }
+
     fun getBooksByName(name:String, successCallback: (books: ArrayList<Book>) -> Unit   // Unit = void
                        , failedCallback:(error: DatabaseError) -> Unit){
 
@@ -55,6 +59,16 @@ class BookController(): DatabaseController(){
                 { s: DataSnapshot -> searchBookByID(id,s) }
                 ,{ snapShots -> successCallback(snapShotBookAdapter(snapShots)) }
                 ,failedCallback)
+    }
+
+    fun FilterByAvailableBook(books:ArrayList<Book>):ArrayList<Book>{
+        val filtered = arrayListOf<Book>()
+        for (book in books){
+            if(!book.isBorrowed && !book.isUsedForRequest){
+                filtered.add(book)
+            }
+        }
+        return filtered
     }
 
     private final fun snapShotBookAdapter(snapShot: DataSnapshot):Book{

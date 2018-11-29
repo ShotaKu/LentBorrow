@@ -58,6 +58,29 @@ class RequestController():DatabaseController(){
 
     }
 
+    fun filterByAcceptedRequests(requests:ArrayList<Request>):ArrayList<Request>{
+        return filterBy(requests,"accepted")
+    }
+
+    fun filterByRejectedRequests(requests:ArrayList<Request>):ArrayList<Request>{
+        return filterBy(requests,"rejected")
+    }
+
+    fun filterByWaitingRequests(requests:ArrayList<Request>):ArrayList<Request>{
+        return filterBy(requests,"wait for check")
+    }
+
+    private fun filterBy(requests:ArrayList<Request>,status:String):ArrayList<Request>{
+        val result = arrayListOf<Request>()
+
+        for (request in requests){
+            if(request.status == status)
+                result.add(request)
+        }
+
+        return result;
+    }
+
     private fun searchRequestByRequesterID(requesterID: String,snapshot: DataSnapshot):Boolean{
         return search("requesterID", requesterID, snapshot);
     }

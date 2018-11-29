@@ -24,6 +24,9 @@ open class ActivityMigrationBuilder{
             ,"UserDetail" to UserDetailActivity::class.java
             ,"AddBook" to AddBookActivity::class.java
             ,"UserBook" to UserBookActivity::class.java
+            //@ToDo: Fook Please edit as EditBookActivity::class.java when you finish create the activity .kt
+            ,"EditBook" to UserBookActivity::class.java
+            ,"RequestLog" to RequestLogActivity::class.java
     )
 
     protected fun set(context: Context,activityName: String){

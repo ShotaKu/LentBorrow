@@ -39,5 +39,9 @@ class MainActivity : AppCompatActivity() {
     fun books(view: View){
         amController.setUserBook(this).go()
     }
+
+    fun log(view: View){
+        amController.setRequestLog(this).go();
+    }
     data class test(val message: String, val num: Int)
 }

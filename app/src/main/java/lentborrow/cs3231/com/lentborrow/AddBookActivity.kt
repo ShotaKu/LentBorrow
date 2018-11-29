@@ -16,11 +16,12 @@ import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.controller.storage.FirebaseStorageController
+import lentborrow.cs3231.com.lentborrow.generic.MessageController
 import java.io.IOException
 
 
 class AddBookActivity : AppCompatActivity() {
-    private val REQUEST_CAMERA = 0
+    //private val REQUEST_CAMERA = 0
     private val SELECT_FILE = 1
     private var dataPath: Uri? = null
 
@@ -56,11 +57,13 @@ class AddBookActivity : AppCompatActivity() {
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(applicationContext.contentResolver, data.data)
+                cameraIcon_addBook.setImageBitmap(bm)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+        } else {
+            MessageController(this).showToast("Please select book image!")
         }
-        cameraIcon_addBook.setImageBitmap(bm)
     }
 
     fun onClickPost(view: View) {
@@ -73,28 +76,36 @@ class AddBookActivity : AppCompatActivity() {
 
         val fsCon = FirebaseStorageController(userID, this)
         val bCon = BookController()
-        //val
 
         if (dataPath != null) {
-            val progressBar = progressBar
-            val bl = blocker
-            progressBar.visibility = View.VISIBLE
-            bl.visibility = View.VISIBLE
-            //val uploader = null
-            fsCon.setFile(dataPath!!, { uploader ->
-                Toast.makeText(this, "Upload Finish!!", Toast.LENGTH_LONG);
-                val imageURL = uploader.downloadURL.toString();
-                Log.d("Debug", imageURL)
-                var newBook = Book(categorySpr
-                        , imageURL, false, false, userID, tradeAtTv
-                        , bookNameTv, "N/A", tradeTypeSpr)
-                newBook = bCon.create(newBook, userID);
-                ActivityMigrationController().setUserBook(this).go()
-            }, { exeption ->
-                Toast.makeText(this, "Upload Failed cause by " + exeption.message, Toast.LENGTH_LONG);
-            }, { progress ->
-                progressBar.progress = progress.toInt();
-            })
+            if (!bookNameTv.isEmpty()) {
+                if (categorySpr != resources.getStringArray(R.array.categoryList)[0]) {
+                    if (!tradeAtTv.isEmpty()) {
+                        if (tradeTypeSpr != resources.getStringArray(R.array.tradeTypeList)[0]) {
+                            val progressBar = progressBar
+                            val bl = blocker
+                            progressBar.visibility = View.VISIBLE
+                            bl.visibility = View.VISIBLE
+                            //val uploader = null
+                            fsCon.setFile(dataPath!!, { uploader ->
+                                Toast.makeText(this, "Upload Finish!!", Toast.LENGTH_LONG);
+                                val imageURL = uploader.downloadURL.toString();
+                                Log.d("Debug", imageURL)
+                                var newBook = Book(categorySpr
+                                        , imageURL, false, false, userID, tradeAtTv
+                                        , bookNameTv, "N/A", tradeTypeSpr)
+                                newBook = bCon.create(newBook, userID);
+                                finish()
+                                //ActivityMigrationController().setUserBook(this).go()
+                            }, { exeption ->
+                                Toast.makeText(this, "Upload Failed cause by " + exeption.message, Toast.LENGTH_LONG);
+                            }, { progress ->
+                                progressBar.progress = progress.toInt();
+                            })
+                        }
+                    }
+                }
+            }
         } else {
             Toast.makeText(this, "Please select book image!", Toast.LENGTH_LONG);
         }

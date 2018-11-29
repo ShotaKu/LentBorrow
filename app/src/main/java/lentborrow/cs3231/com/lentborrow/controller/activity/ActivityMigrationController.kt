@@ -39,4 +39,16 @@ class ActivityMigrationController() : ActivityMigrationBuilder(){
     fun setUserBook(context: Context):ActivityMigrationBuilder {
         return ActivityMigrationController(context,"UserBook")
     }
+
+    fun setEditBook(context: Context):ActivityMigrationController{
+        return ActivityMigrationController(context,"EditBook")
+    }
+
+    fun setRequestLog(context: Context):ActivityMigrationController{
+        return ActivityMigrationController(context,"RequestLog")
+    }
+
+//    fun back(context: Context){
+//        context.
+//    }
 }

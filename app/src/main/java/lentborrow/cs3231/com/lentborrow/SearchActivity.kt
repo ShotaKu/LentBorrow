@@ -46,6 +46,7 @@ class SearchActivity : AppCompatActivity() {
         val bCon = BookController();
 
          bCon.getBooksByName(key,{books ->
+             val filtered = bCon.FilterByAvailableBook(books);
                  showResult(books);
          },fun (e:DatabaseError){
              Log.d("ERROR", e.message)
