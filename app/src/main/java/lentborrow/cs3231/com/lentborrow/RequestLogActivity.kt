@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_request_box.*
+import kotlinx.android.synthetic.main.activity_request_log.*
 import lentborrow.cs3231.com.lentborrow.controller.database.request.RequestController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
+import lentborrow.cs3231.com.lentborrow.customCell.requestCell.NewRequestAdapter
 import lentborrow.cs3231.com.lentborrow.customCell.requestCell.RequestAdapter
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
 
@@ -27,7 +29,7 @@ class RequestLogActivity : AppCompatActivity() {
             var filtered = requests
 
             if (0 < filtered.count()) {
-                val rView = recyclerView
+                val rView = reqestList
                 rView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
                 var adapter = RequestAdapter(filtered)
                 rView.adapter = adapter

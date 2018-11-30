@@ -18,7 +18,7 @@ class NewRequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.request_customcell, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.new_request_customcell, parent, false)
         val newView = ViewHolder(v)
         return newView
     }
@@ -29,27 +29,27 @@ class NewRequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter
 
         val id = request.bookID
         val tradeWithID = request.tradeWithID
-        viewHolder.bCon.getBookByID(id,{book ->
-            viewHolder.bCon.getBookByID(tradeWithID,{ tradeWith ->
+        viewHolder.bCon.getBookByID(id, { book ->
+            viewHolder.bCon.getBookByID(tradeWithID, { tradeWith ->
                 viewHolder.bookName.text = book!!.name
                 viewHolder.tradeWithName.text = tradeWith!!.name
                 viewHolder.date.text = request.date
                 viewHolder.time.text = request.time
-                ImageDownloader(book!!.imageURL,viewHolder.bookImage).startDownload(){
+                ImageDownloader(book!!.imageURL, viewHolder.bookImage).startDownload() {
                     viewHolder.load1.visibility = View.INVISIBLE
                 }
-                ImageDownloader(tradeWith!!.imageURL,viewHolder.tradeWithImage).startDownload(){
+                ImageDownloader(tradeWith!!.imageURL, viewHolder.tradeWithImage).startDownload() {
                     viewHolder.load2.visibility = View.INVISIBLE
                 }
-            },{
+            }, {
                 mCon.showToast("Failed to load book information")
             })
-        },{
+        }, {
             mCon.showToast("Failed to load book information")
         })
     }
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val bookName = v.bookName_newReqCell
         val tradeWithName = v.tradeWithName_newReqCell
         val date = v.tradeDate_newReqCell
