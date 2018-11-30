@@ -81,6 +81,35 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/postReview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Post review"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/reviewContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Write review here..."
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Send" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
