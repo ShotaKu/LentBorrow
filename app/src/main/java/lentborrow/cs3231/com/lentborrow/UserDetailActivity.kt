@@ -56,6 +56,7 @@ class UserDetailActivity : AppCompatActivity() {
         bCon.getBooksByIDs(ArrayList(user.lending), { books ->
             run {
                 setBooks(books)
+                setReview(user);
                 MessageController(this).showToast("Loaded")
             }
         }, { error ->
@@ -79,8 +80,9 @@ class UserDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setReview(userID: String) {
+    private fun setReview(user: User) {
         //@TODO
+
     }
 
     private fun Load() {
