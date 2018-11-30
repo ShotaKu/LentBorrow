@@ -4,6 +4,7 @@ import android.provider.ContactsContract
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseController
+import lentborrow.cs3231.com.lentborrow.controller.database.user.review.Review
 
 class UserController : DatabaseController(){
     fun create(user:User):User{
@@ -49,11 +50,15 @@ class UserController : DatabaseController(){
         val email:String = snapShot.child("email").value.toString()
         val name:String = snapShot.child("name").value.toString()
         val lending:ArrayList<String> = ArrayList()
+        val reviews:ArrayList<Review> = arrayListOf()
         for(book in snapShot.child("Lending").children){
             lending.add(book.value.toString())
         }
+        for(review in snapShot.child("Review").children){
+            reviews.add(Review.dataSnapshotAdapter(review))
+        }
 
-        return User(userID,userName,email,name,lending)
+        return User(userID,userName,email,name,lending,reviews)
     }
 
     fun searchUserByID(id: String, snapShot: DataSnapshot):Boolean{

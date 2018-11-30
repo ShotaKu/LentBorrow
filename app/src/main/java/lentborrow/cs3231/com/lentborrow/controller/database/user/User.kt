@@ -2,6 +2,7 @@ package lentborrow.cs3231.com.lentborrow.controller.database.user
 
 import android.provider.ContactsContract
 import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseForm
+import lentborrow.cs3231.com.lentborrow.controller.database.user.review.Review
 
 class User(){
     var userID:String = ""
@@ -9,6 +10,7 @@ class User(){
     var email:String = ""
     var name:String = ""
     var lending:List<String> = emptyList()
+    var reviews:ArrayList<Review> = ArrayList()
 
     constructor(userName:String,email:String):this(){
         this.userName = userName
@@ -23,10 +25,14 @@ class User(){
         this.lending = lending
         this.userID = userID
     }
+    constructor(userID:String, userName: String,email: String,name:String,lending:List<String>, reviews: ArrayList<Review>):this(userID,userName,email,name,lending){
+        this.reviews = reviews
+    }
 
     fun getDatabaseForm():DatabaseForm{
-        return databaseForm(userName,email,name,lending)
+        return databaseForm(userName,email,name,lending,reviews)
     }
-    data class databaseForm(val userName: String, val email: String, val name:String,val lending:List<String>):DatabaseForm()
+
+    data class databaseForm(val userName: String, val email: String, val name:String,val lending:List<String>, val reviews:List<Review>):DatabaseForm()
 
 }
