@@ -7,13 +7,14 @@ class Review(){
     var postFrom:String = ""
     var postOn:String = ""
     var content:String = ""
+    var stars:Int = 0;
 
-    constructor(postFrom:String, postOn:String, content:String):this(){
+    constructor(postFrom:String, postOn:String, content:String,stars:Int):this(){
         this.postFrom = postFrom
         this.postOn = postOn
         this.content = content;
     }
-    constructor(id:String,postFrom:String, postOn:String, content:String):this(postFrom, postOn, content){
+    constructor(id:String,postFrom:String, postOn:String, content:String,stars:Int):this(postFrom, postOn, content, stars){
         this.id = id;
     }
 
@@ -23,7 +24,8 @@ class Review(){
             val postFrom = snapShot.child("postFrom").value.toString()
             val postOn = snapShot.child("postOn").value.toString()
             val content = snapShot.child("content").value.toString()
-            val result = Review(id,postFrom,postOn, content)
+            val stars = snapShot.child("stars").value.toString().toInt()
+            val result = Review(id,postFrom, postOn, content, stars)
             return result;
         }
     }
