@@ -32,10 +32,10 @@ class RequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter<Re
                     if (tradeWithBook != null) {
                         val uCon = UserController()
                         uCon.getUserByID(requests[p1].requesterID, { requester ->
-                            var name = book!!.name;
-                            var tradeWith = tradeWithBook!!.name
-                            viewHolder.bookName.text = name;
-                            viewHolder.tradeWith.text = "Trade with: " + tradeWith;
+                            var name = book.name
+                            var tradeWith = tradeWithBook.name
+                            viewHolder.bookName.text = name
+                            viewHolder.tradeWith.text = "Trade with: " + tradeWith
                             viewHolder.reqester.text = "Sent from " + requester.userName
                             viewHolder.tradeDate.text = requests[p1].date + " " + requests[p1].time
                             val downloadImage = ImageDownloader(tradeWithBook.imageURL, viewHolder.image)
@@ -43,13 +43,13 @@ class RequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter<Re
                                 viewHolder.loading.visibility = View.INVISIBLE
                             }
                             viewHolder.status.text = requests[p1].status
-                            val context = viewHolder.itemView.context;
+                            val context = viewHolder.itemView.context
                             if (requests[p1].status == "accepted") {
-                                viewHolder.status.setTextColor(context.resources.getColor(R.color.accepted));
+                                viewHolder.status.setTextColor(context.resources.getColor(R.color.accepted))
                             } else if (requests[p1].status == "rejected") {
-                                viewHolder.status.setTextColor(context.resources.getColor(R.color.rejected));
+                                viewHolder.status.setTextColor(context.resources.getColor(R.color.rejected))
                             } else {
-                                viewHolder.status.setTextColor(context.resources.getColor(R.color.pedding));
+                                viewHolder.status.setTextColor(context.resources.getColor(R.color.pedding))
                             }
                         }, { error ->
                             Toast.makeText(viewHolder.itemView.context, "get user information failed", Toast.LENGTH_LONG).show()

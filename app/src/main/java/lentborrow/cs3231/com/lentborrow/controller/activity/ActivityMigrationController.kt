@@ -5,15 +5,15 @@ import android.content.Context
 class ActivityMigrationController() : ActivityMigrationBuilder(){
 
     private constructor(context: Context,activityName: String):this(){
-        super.set(context,activityName);
+        super.set(context,activityName)
     }
 
-    public fun setLoginActivity(context: Context): ActivityMigrationBuilder {
-        return ActivityMigrationController(context,"Login");
+    fun setLoginActivity(context: Context): ActivityMigrationBuilder {
+        return ActivityMigrationController(context,"Login")
     }
 
-    public fun setRegistrationActivity(context: Context): ActivityMigrationBuilder {
-        return ActivityMigrationController(context,"Register");
+    fun setRegistrationActivity(context: Context): ActivityMigrationBuilder {
+        return ActivityMigrationController(context,"Register")
     }
 
     fun setRequestBoxActivity(context: Context): ActivityMigrationBuilder {
@@ -48,7 +48,8 @@ class ActivityMigrationController() : ActivityMigrationBuilder(){
         return ActivityMigrationController(context,"RequestLog")
     }
 
-//    fun back(context: Context){
-//        context.
-//    }
+    fun setRequestDetail(context: Context):ActivityMigrationController{
+        return ActivityMigrationController(context,"RequestDetail")
+    }
+
 }

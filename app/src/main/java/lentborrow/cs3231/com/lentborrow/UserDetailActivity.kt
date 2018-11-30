@@ -18,7 +18,7 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
-        val uCon = UserController();
+        val uCon = UserController()
         val lCon = LocalValueController(this)
 
         val id = intent.getStringExtra("userID")
@@ -51,11 +51,12 @@ class UserDetailActivity : AppCompatActivity() {
 
     fun setUser(user: User) {
         //@TODO User review
-        userName_userDetail.setText(user.userName);
+        userName_userDetail.text = user.userName
         val bCon = BookController()
         bCon.getBooksByIDs(ArrayList(user.lending), { books ->
             run {
-                setBooks(books);
+                setBooks(books)
+                setReview(user);
                 MessageController(this).showToast("Loaded")
             }
         }, { error ->
@@ -68,9 +69,9 @@ class UserDetailActivity : AppCompatActivity() {
     fun createCell(book: Book): View {
         val factory = LayoutInflater.from(this)
         val myView = factory.inflate(R.layout.book_customcell, null)
-        myView.bookName_bookCell.setText(book.name)
-        myView.tradeType_bookCell.setText(book.tradeType);
-        return myView;
+        myView.bookName_bookCell.text = book.name
+        myView.tradeType_bookCell.text = book.tradeType
+        return myView
     }
 
     private fun setBooks(books: ArrayList<Book>) {
@@ -79,8 +80,9 @@ class UserDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setReview(userID: String) {
+    private fun setReview(user: User) {
         //@TODO
+
     }
 
     private fun Load() {

@@ -7,14 +7,14 @@ import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueControll
 
 class FirebaseStorageUploader(path:Uri,context:Context){
 
-    var path:Uri? = null;
-    var onStoragePath:String = "";
+    var path:Uri? = null
+    var onStoragePath:String = ""
     var uploadReference:StorageReference? = null
-    var downloadURL:Uri? = null;
-    var fsCon:FirebaseStorageController? = null;
+    var downloadURL:Uri? = null
+    var fsCon:FirebaseStorageController? = null
 
     init {
-        this.path = path;
+        this.path = path
         val lvCon = LocalValueController(context)
         this.fsCon = FirebaseStorageController(lvCon.getID(),context)
     }

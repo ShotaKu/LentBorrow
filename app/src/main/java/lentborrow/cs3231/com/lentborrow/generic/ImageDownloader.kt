@@ -10,15 +10,15 @@ import android.widget.ImageView
 class ImageDownloader(imageURL:String, imageView:ImageView){
 
     var imageURL:String = ""
-    var imageView:ImageView? = null;
+    var imageView:ImageView? = null
 
     init {
-        this.imageURL = imageURL;
-        this.imageView = imageView;
+        this.imageURL = imageURL
+        this.imageView = imageView
     }
 
     fun startDownload(finishCallback:(() ->Unit)? = null){
-        downloadImageTask(imageView!!,finishCallback).execute(imageURL);
+        downloadImageTask(imageView!!,finishCallback).execute(imageURL)
     }
 
     private class downloadImageTask(internal var bmImage: ImageView, val finishCallback:(() ->Unit)?)

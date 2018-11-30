@@ -15,13 +15,13 @@ import lentborrow.cs3231.com.lentborrow.generic.MessageController
 
 class RegistrationActivity : AppCompatActivity() {
     //private var mAuth: FirebaseAuth? = null
-    val lCon = LoginController();
-    var mCon = MessageController(this);
-    val uCon = UserController();
+    val lCon = LoginController()
+    var mCon = MessageController(this)
+    val uCon = UserController()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
-        mCon = MessageController(this);
+        mCon = MessageController(this)
     }
 
     public override fun onStart() {
@@ -33,22 +33,22 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     fun Register(view: View) {
-        val email = email_registration.text.toString();
-        val pass = passwordRegistration.text.toString();
+        val email = email_registration.text.toString()
+        val pass = passwordRegistration.text.toString()
         lCon.Register(this, email, pass,
                 fun(email, pass) {
                     //Login after registration
-                    val uName = userNameRegistration.text.toString();
-                    val user = uCon.create(User(uName, email));
+                    val uName = userNameRegistration.text.toString()
+                    val user = uCon.create(User(uName, email))
                     lCon.Login(this, email, pass,
                             fun(email: String, pass: String) {
-                                val lvCon = LocalValueController(this);
-                                lvCon.setEmail(email);
-                                lvCon.setPassword(pass);
-                                lvCon.setID(user.userID);
-                                mCon.showToast("Hi," + email);
+                                val lvCon = LocalValueController(this)
+                                lvCon.setEmail(email)
+                                lvCon.setPassword(pass)
+                                lvCon.setID(user.userID)
+                                mCon.showToast("Hi," + email)
                                 //@TODO go to Trade Schedule
-                                val amCon = ActivityMigrationController();
+                                val amCon = ActivityMigrationController()
                                 amCon.setRequestBoxActivity(this)
                                         .pass("status","waiting").go()
                             }
@@ -56,7 +56,7 @@ class RegistrationActivity : AppCompatActivity() {
                         //Failed
                         mCon.showToast("Login failed:" + task.exception)
                     }
-                    );
+                    )
                 },
                 fun(task) {
                     //Fail to register
@@ -66,13 +66,13 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     fun toLogin(view: View) {
-        val email = userNameRegistration.text.toString();
-        val pass = passwordRegistration.text.toString();
-        val amController = ActivityMigrationController();
+        val email = userNameRegistration.text.toString()
+        val pass = passwordRegistration.text.toString()
+        val amController = ActivityMigrationController()
         amController.setLoginActivity(this)
                 .pass("email", email)
                 .pass("password", pass)
-                .go();
+                .go()
     }
 
 }

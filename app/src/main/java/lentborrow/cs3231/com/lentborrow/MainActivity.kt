@@ -10,38 +10,38 @@ import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseController
 
 class MainActivity : AppCompatActivity() {
 
-    var amController = ActivityMigrationController();
+    var amController = ActivityMigrationController()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val dCon = DatabaseController();
+        val dCon = DatabaseController()
         val obj = test("Test post",1)
-        dCon.setObject("Test",obj);
-        amController = ActivityMigrationController();
+        dCon.setObject("Test",obj)
+        amController = ActivityMigrationController()
     }
 
     fun requestBox(view: View) {
         var intent = Intent(this, RequestBoxActivity::class.java)
-        startActivity(intent);
+        startActivity(intent)
     }
     fun register(view: View){
-        amController.setRegistrationActivity(this).go();
+        amController.setRegistrationActivity(this).go()
     }
     fun login(view: View){
-        amController.setLoginActivity(this).go();
+        amController.setLoginActivity(this).go()
     }
     fun search(view: View){
-        amController.setSearchActivity(this).go();
+        amController.setSearchActivity(this).go()
     }
     fun user(view: View){
-        amController.setUserDetail(this).pass("userID","-LN0-bh6HggS-bPicKJY").go();
+        amController.setUserDetail(this).pass("userID","-LN0-bh6HggS-bPicKJY").go()
     }
     fun books(view: View){
         amController.setUserBook(this).go()
     }
 
     fun log(view: View){
-        amController.setRequestLog(this).go();
+        amController.setRequestLog(this).go()
     }
     data class test(val message: String, val num: Int)
 }

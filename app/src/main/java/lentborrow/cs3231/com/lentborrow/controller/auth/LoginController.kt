@@ -8,12 +8,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginController()
-{
-    var fbAuth:FirebaseAuth = FirebaseAuth.getInstance();
+class LoginController {
+    var fbAuth:FirebaseAuth = FirebaseAuth.getInstance()
 
     init {
-        fbAuth = FirebaseAuth.getInstance();
+        fbAuth = FirebaseAuth.getInstance()
     }
 
     fun Login(activity:Activity, email: String, password:String
@@ -22,9 +21,9 @@ class LoginController()
         fbAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, OnCompleteListener<AuthResult>
         { task ->
             if(task.isSuccessful){
-                successCallback(email,password);
+                successCallback(email,password)
             }else{
-                failedCallback(task);
+                failedCallback(task)
             }
         })
     }
@@ -35,20 +34,20 @@ class LoginController()
         fbAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, OnCompleteListener<AuthResult>
         { task ->
             if(task.isSuccessful){
-                successCallback(email,password);
+                successCallback(email,password)
             }else{
-                failedCallback(task);
+                failedCallback(task)
             }
         })
     }
 
     fun isLogedin():Boolean {
-        return fbAuth.currentUser != null;
+        return fbAuth.currentUser != null
     }
 
     fun logOut() {
         if(isLogedin()){
-            fbAuth.signOut();
+            fbAuth.signOut()
         }
     }
 }

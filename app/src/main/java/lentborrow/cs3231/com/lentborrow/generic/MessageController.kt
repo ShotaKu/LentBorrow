@@ -7,6 +7,6 @@ class MessageController(context: Context){
     val context:Context = context
 
     fun showToast(message:String){
-        Toast.makeText(this.context,message,Toast.LENGTH_LONG);
+        Toast.makeText(this.context,message,Toast.LENGTH_LONG)
     }
 }

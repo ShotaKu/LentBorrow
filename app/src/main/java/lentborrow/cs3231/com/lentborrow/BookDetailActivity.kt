@@ -25,16 +25,16 @@ class BookDetailActivity : AppCompatActivity() {
     var bCon = BookController()
     val rCon = RequestController()
     var showedBook: Book? = null
-    var userBooks: ArrayList<Book> = arrayListOf();
+    var userBooks: ArrayList<Book> = arrayListOf()
     val cal = Calendar.getInstance()
-    val RESULT_FROM_DATEPICKER = 1;
-    val RESULT_FROM_TIMEPICKER = 2;
+    val RESULT_FROM_DATEPICKER = 1
+    val RESULT_FROM_TIMEPICKER = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
 
-        var bookID = intent.getStringExtra("bookID");
+        var bookID = intent.getStringExtra("bookID")
         getBook(bookID)
     }
 
@@ -42,8 +42,8 @@ class BookDetailActivity : AppCompatActivity() {
 
         bCon.getBookByID(bookID, { book ->
             if (book != null) {
-                showedBook = book;
-                showBookDetail(book);
+                showedBook = book
+                showBookDetail(book)
                 val lvCon = LocalValueController(this)
                 rCon.getRequestsByBookID(book.id, { requests ->
                     for (request in requests) {
@@ -59,32 +59,32 @@ class BookDetailActivity : AppCompatActivity() {
                     MessageController(this).showToast("Error when get request information")
                 })
             } else
-                MessageController(this).showToast("Book detail broken");
+                MessageController(this).showToast("Book detail broken")
         }, { error ->
-            MessageController(this).showToast("Book not found");
+            MessageController(this).showToast("Book not found")
         })
     }
 
     fun showBookDetail(book: Book) {
-        bookName_detail.text = book.name;
-        tradeType_detail.text = book.tradeType;
-        bookCategory_detail.text = "Category: " + book.category;
-        tradeAt_detail.text = "Trade at " + book.locate;
+        bookName_detail.text = book.name
+        tradeType_detail.text = book.tradeType
+        bookCategory_detail.text = "Category: " + book.category
+        tradeAt_detail.text = "Trade at " + book.locate
         bookOwner_detail.text = "See book owner"
-        ownerID = book.lentBy;
+        ownerID = book.lentBy
         val iDown = ImageDownloader(book.imageURL, bookImage_detail)
         iDown.startDownload()
     }
 
-    var ownerID = "";
+    var ownerID = ""
 
     private fun switchUserBook(isUsers: Boolean) {
         if (isUsers) {
             showMessage("This is your book")
-            editBook_detail.visibility = View.VISIBLE;
+            editBook_detail.visibility = View.VISIBLE
         } else {
             hideMessage()
-            editBook_detail.visibility = View.INVISIBLE;
+            editBook_detail.visibility = View.INVISIBLE
         }
     }
 
@@ -102,7 +102,7 @@ class BookDetailActivity : AppCompatActivity() {
 
     private fun showMessage(message: String) {
         val userBook = yourbook_detail
-        yourbook_detail.text = message;
+        yourbook_detail.text = message
         val requestForm = requestForm_detail
         userBook.visibility = View.VISIBLE
         requestForm.visibility = View.INVISIBLE
@@ -128,19 +128,19 @@ class BookDetailActivity : AppCompatActivity() {
 
     private fun setTradeWithSpinner() {
         val spinner = tradeWith_detail
-        val lvCon = LocalValueController(this);
+        val lvCon = LocalValueController(this)
         bCon.getBooksByOwnerID(lvCon.getID(), { books ->
-            val availableBooks = bCon.FilterByAvailableBook(books);
+            val availableBooks = bCon.FilterByAvailableBook(books)
             if(0<availableBooks.count()){
-                userBooks = availableBooks;
+                userBooks = availableBooks
                 val nameList = ArrayList<String>()
                 for (book in availableBooks) {
-                    nameList.add(book.name);
+                    nameList.add(book.name)
                 }
                 val dataAdapter = ArrayAdapter<String>(this,
                         android.R.layout.simple_spinner_item, nameList)
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = dataAdapter;
+                spinner.adapter = dataAdapter
             }else{
                 MessageController(this).showToast("No books for trade")
                 switchNoBookForRequest()
@@ -162,7 +162,7 @@ class BookDetailActivity : AppCompatActivity() {
         val target = datePicker
 
         //target.
-        target.setOnClickListener() {
+        target.setOnClickListener {
             val text = tradeOnDate_detail
             val yea = cal.get(Calendar.YEAR)
             val mon = cal.get(Calendar.MONTH)
@@ -180,7 +180,7 @@ class BookDetailActivity : AppCompatActivity() {
     private fun setTradeOnTimePicker() {
         val text = tradeOnTime_detail
         val target = timePicker
-        target.setOnClickListener() {
+        target.setOnClickListener {
             val h = cal.get(Calendar.HOUR)
             val m = cal.get(Calendar.MINUTE)
 
@@ -198,7 +198,7 @@ class BookDetailActivity : AppCompatActivity() {
         if (!date.isEmpty()) {
             if (!time.isEmpty()) {
                 if (0 <= tradeWithIndex) {
-                    val tradeWith = userBooks[tradeWithIndex];
+                    val tradeWith = userBooks[tradeWithIndex]
                     val lvCon = LocalValueController(this)
                     val request = Request(showedBook!!.id
                             , date
@@ -207,7 +207,7 @@ class BookDetailActivity : AppCompatActivity() {
                             , "wait for check"
                             , time
                             , tradeWith.id)
-                    tradeWith.isUsedForRequest = true;
+                    tradeWith.isUsedForRequest = true
                     bCon.change(tradeWith)
                     rCon.create(request)
                     finish()

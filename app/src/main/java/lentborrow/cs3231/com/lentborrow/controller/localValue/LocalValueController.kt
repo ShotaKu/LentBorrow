@@ -4,31 +4,31 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class LocalValueController(context: Context){
-    final val localStrageID = "LENTBORROW_STORAGE"
-    var local:SharedPreferences? = null;
-    var editor:SharedPreferences.Editor? = null;
+    val localStrageID = "LENTBORROW_STORAGE"
+    var local:SharedPreferences? = null
+    var editor:SharedPreferences.Editor? = null
 
     init {
         this.local = context.getSharedPreferences(localStrageID, 0)
-        this.editor = local!!.edit();
+        this.editor = local!!.edit()
     }
 
     private fun getString(key:String):String{
-        return local!!.getString(key,"");
+        return local!!.getString(key,"")
     }
 
     fun getBool(key: String):Boolean{
-        return local!!.getBoolean(key,false);
+        return local!!.getBoolean(key,false)
     }
 
     fun setBool(key: String,value:Boolean){
-        editor!!.putBoolean(key,value);
-        editor!!.commit();
+        editor!!.putBoolean(key,value)
+        editor!!.commit()
     }
 
     private fun setString(key: String, value: String){
-        editor!!.putString(key,value);
-        editor!!.commit();
+        editor!!.putString(key,value)
+        editor!!.commit()
     }
 
     fun getEmail(): String {
@@ -40,7 +40,7 @@ class LocalValueController(context: Context){
     }
 
     fun setPassword(password:String){
-        setString("password", password);
+        setString("password", password)
     }
 
     fun getPassword():String{
@@ -48,9 +48,9 @@ class LocalValueController(context: Context){
     }
 
     fun setID(userID: String) {
-        setString("userID",userID);
+        setString("userID",userID)
     }
     fun getID():String {
-        return getString("userID");
+        return getString("userID")
     }
 }

@@ -4,12 +4,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseController
 
-class RequestController():DatabaseController(){
+class RequestController :DatabaseController(){
 
     fun create(request: Request):Request{
         val requestID = this.pushObject("Request",request.getDatabaseForm(),false)
         request.requestID = requestID
-        return request;
+        return request
     }
 
     fun getRequestsByRequesterID(requesterID:String,successCallback: (requests:ArrayList<Request>) -> Unit   // Unit = void
@@ -78,19 +78,19 @@ class RequestController():DatabaseController(){
                 result.add(request)
         }
 
-        return result;
+        return result
     }
 
     private fun searchRequestByRequesterID(requesterID: String,snapshot: DataSnapshot):Boolean{
-        return search("requesterID", requesterID, snapshot);
+        return search("requesterID", requesterID, snapshot)
     }
 
     private fun searchRequestByBookID(bookID:String,snapshot: DataSnapshot):Boolean{
-        return search("bookID", bookID, snapshot);
+        return search("bookID", bookID, snapshot)
     }
 
     private fun searchRequestByOwnerID(ownerID:String,snapshot: DataSnapshot):Boolean{
-        return search("ownerID", ownerID, snapshot);
+        return search("ownerID", ownerID, snapshot)
     }
 
     private fun search(key: String, value:String, snapshot: DataSnapshot):Boolean{
@@ -114,6 +114,6 @@ class RequestController():DatabaseController(){
         for (snapShot in snapShots) {
             list.add(snapShotRequestAdapter(snapShot))
         }
-        return list;
+        return list
     }
 }

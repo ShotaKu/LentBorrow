@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_book.*
-import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
@@ -47,7 +46,7 @@ class AddBookActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data)
-                dataPath = data.data;
+                dataPath = data.data
             }
         }
     }
@@ -72,7 +71,7 @@ class AddBookActivity : AppCompatActivity() {
         val tradeAtTv = tradeAt_addBook.text.toString()
         val tradeTypeSpr = tradeType_addBook.selectedItem.toString()
         var lvCon = LocalValueController(this)
-        val userID = lvCon.getID();
+        val userID = lvCon.getID()
 
         val fsCon = FirebaseStorageController(userID, this)
         val bCon = BookController()
@@ -88,26 +87,26 @@ class AddBookActivity : AppCompatActivity() {
                             bl.visibility = View.VISIBLE
                             //val uploader = null
                             fsCon.setFile(dataPath!!, { uploader ->
-                                Toast.makeText(this, "Upload Finish!!", Toast.LENGTH_LONG);
-                                val imageURL = uploader.downloadURL.toString();
+                                Toast.makeText(this, "Upload Finish!!", Toast.LENGTH_LONG)
+                                val imageURL = uploader.downloadURL.toString()
                                 Log.d("Debug", imageURL)
                                 var newBook = Book(categorySpr
                                         , imageURL, false, false, userID, tradeAtTv
                                         , bookNameTv, "N/A", tradeTypeSpr)
-                                newBook = bCon.create(newBook, userID);
+                                newBook = bCon.create(newBook, userID)
                                 finish()
                                 //ActivityMigrationController().setUserBook(this).go()
                             }, { exeption ->
-                                Toast.makeText(this, "Upload Failed cause by " + exeption.message, Toast.LENGTH_LONG);
+                                Toast.makeText(this, "Upload Failed cause by " + exeption.message, Toast.LENGTH_LONG)
                             }, { progress ->
-                                progressBar.progress = progress.toInt();
+                                progressBar.progress = progress.toInt()
                             })
                         }
                     }
                 }
             }
         } else {
-            Toast.makeText(this, "Please select book image!", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Please select book image!", Toast.LENGTH_LONG)
         }
 //
     }
