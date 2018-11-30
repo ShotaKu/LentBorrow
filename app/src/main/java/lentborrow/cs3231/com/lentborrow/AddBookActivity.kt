@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_book.*
-import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
