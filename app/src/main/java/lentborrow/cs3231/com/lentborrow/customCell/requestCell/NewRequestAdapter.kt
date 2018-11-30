@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.new_request_customcell.view.*
 import lentborrow.cs3231.com.lentborrow.R
+import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.database.request.Request
 import lentborrow.cs3231.com.lentborrow.generic.ImageDownloader
@@ -40,6 +41,13 @@ class NewRequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter
                 }
                 ImageDownloader(tradeWith!!.imageURL, viewHolder.tradeWithImage).startDownload() {
                     viewHolder.load2.visibility = View.INVISIBLE
+                }
+                viewHolder.itemView.setOnClickListener(){
+                    //ActivityMigrationController().setRequestBoxActivity()
+                    ActivityMigrationController()
+                            .setRequestDetail(viewHolder.itemView.context)
+                            .pass("requestID", request.requestID)
+                            .go()
                 }
             }, {
                 mCon.showToast("Failed to load book information")

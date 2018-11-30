@@ -48,7 +48,8 @@ class ActivityMigrationController() : ActivityMigrationBuilder(){
         return ActivityMigrationController(context,"RequestLog")
     }
 
-//    fun back(context: Context){
-//        context.
-//    }
+    fun setRequestDetail(context: Context):ActivityMigrationController{
+        return ActivityMigrationController(context,"RequestDetail")
+    }
+
 }
