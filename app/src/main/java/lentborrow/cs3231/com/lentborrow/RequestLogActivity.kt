@@ -16,21 +16,21 @@ class RequestLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_log)
 
-        setTitle("Request Log");
-        val mCon = MessageController(this);
+        title = "Request Log"
+        val mCon = MessageController(this)
 
         val rCon = RequestController()
         val lvCon = LocalValueController(this)
         val status = intent.getStringExtra("status")
 
         rCon.getRequestsByOwnerID(lvCon.getID(), { requests ->
-            var filtered = requests;
+            var filtered = requests
 
             if (0 < filtered.count()) {
                 val rView = recyclerView
                 rView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-                var adapter = RequestAdapter(filtered);
-                rView.adapter = adapter;
+                var adapter = RequestAdapter(filtered)
+                rView.adapter = adapter
             } else {
                 mCon.showToast("No requests")
             }

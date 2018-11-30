@@ -26,46 +26,46 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun logOut(){
-        val lCon = LoginController();
-        lCon.logOut();
+        val lCon = LoginController()
+        lCon.logOut()
         val lvCon = LocalValueController(this)
         lvCon.setID("")
         lvCon.setPassword("")
-        lvCon.setEmail("");
+        lvCon.setEmail("")
     }
 
     //Start
     override fun onResume() {
         super.onResume()
 
-        val lCon = LocalValueController(this);
-        var email = lCon.getEmail();
+        val lCon = LocalValueController(this)
+        var email = lCon.getEmail()
         var pass = lCon.getPassword()
 
         if (email.isEmpty() || pass.isEmpty()) {
-            var intEmail = intent.getStringExtra("email");
+            var intEmail = intent.getStringExtra("email")
             if(intEmail!=null)
-                email = intEmail!!;
+                email = intEmail
             var intPass = intent.getStringExtra("password")
             if(intPass!=null)
-                pass = intPass!!;
+                pass = intPass
         }
-        email_login.setText(email, TextView.BufferType.EDITABLE);
-        password_login.setText(pass, TextView.BufferType.EDITABLE);
+        email_login.setText(email, TextView.BufferType.EDITABLE)
+        password_login.setText(pass, TextView.BufferType.EDITABLE)
     }
 
     //Login button function
     fun Login(view: View) {
-        val name = email_login.text.toString();
-        val pass = password_login.text.toString();
-        login(view, name, pass);
+        val name = email_login.text.toString()
+        val pass = password_login.text.toString()
+        login(view, name, pass)
     }
 
     //go to registration activity
     fun toRegistration(view: View) {
-        val mail = email_login.text.toString();
-        val pass = password_login.text.toString();
-        val amCon = ActivityMigrationController();
+        val mail = email_login.text.toString()
+        val pass = password_login.text.toString()
+        val amCon = ActivityMigrationController()
         amCon.setRegistrationActivity(this)
                 .pass("email", mail)
                 .pass("password", pass)
@@ -76,32 +76,32 @@ class LoginActivity : AppCompatActivity() {
     fun login(view: View, email: String, password: String) {
         showMessage("Authenticating...")
 
-        val lCon = LoginController();
-        lCon.logOut();
+        val lCon = LoginController()
+        lCon.logOut()
         lCon.Login(this, email, password, { email, password ->
             run {
-                showMessage("Hi " + email);
-                val lvCon = LocalValueController(this);
-                lvCon.setEmail(email);
-                lvCon.setPassword(password);
+                showMessage("Hi " + email)
+                val lvCon = LocalValueController(this)
+                lvCon.setEmail(email)
+                lvCon.setPassword(password)
                 val uCon = UserController()
                 uCon.getUserByEmail(email,{ user -> run{
                     //@TODO go to Trade Schedule
                     lvCon.setID(user.userID)
-                    val amCon = ActivityMigrationController();
+                    val amCon = ActivityMigrationController()
                     amCon.setRequestBoxActivity(this)
                             .pass("status","waiting").go()
 //                    amCon.setRequestBoxActivity(this)
 //                            .pass("email",email)
 //                            .go()
                 }},{error ->
-                    MessageController(this).showToast(error.message);
+                    MessageController(this).showToast(error.message)
                 })
 
             }
         }, { task ->
             showMessage("Error: ${task.exception?.message}")
-        });
+        })
     }
 
     fun showMessage(message: String) {

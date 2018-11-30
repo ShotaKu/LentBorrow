@@ -3,7 +3,7 @@ package lentborrow.cs3231.com.lentborrow.controller.database.request
 import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseForm
 
 class Request() {
-    var requestID = "";
+    var requestID = ""
     var bookID = ""
     var date = ""
     var ownerID = ""
@@ -19,12 +19,12 @@ class Request() {
 
     constructor(bookID: String, date: String, ownerID: String, requesterID: String, status: String, time: String, tradeWithID: String) : this() {
         this.bookID = bookID
-        this.date = date;
+        this.date = date
         this.ownerID = ownerID
         this.requesterID = requesterID
-        this.status = status;
-        this.time = time;
-        this.tradeWithID = tradeWithID;
+        this.status = status
+        this.time = time
+        this.tradeWithID = tradeWithID
     }
 
     fun getDatabaseForm(): DatabaseForm {

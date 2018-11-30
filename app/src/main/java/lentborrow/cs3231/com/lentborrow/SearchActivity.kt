@@ -18,15 +18,15 @@ import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.customCell.bookCell.BookAdapter
 
 class SearchActivity : AppCompatActivity() {
-    var list:RecyclerView? = null;
+    var list:RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        val a = ArrayList<Book>();
-        a.add(Book());
-        a.add(Book());
-        list = searchResultList_search;
-        list!!.adapter = BookAdapter(a);
+        val a = ArrayList<Book>()
+        a.add(Book())
+        a.add(Book())
+        list = searchResultList_search
+        list!!.adapter = BookAdapter(a)
         serchBox_search.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
                 //not thing
@@ -37,17 +37,17 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                search(p0.toString());
+                search(p0.toString())
             }
         })
     }
 
     private fun search(key:String){
-        val bCon = BookController();
+        val bCon = BookController()
 
-         bCon.getBooksByName(key,{books ->
-             val filtered = bCon.FilterByAvailableBook(books);
-                 showResult(books);
+        bCon.getBooksByName(key,{books ->
+             val filtered = bCon.FilterByAvailableBook(books)
+             showResult(books)
          },fun (e:DatabaseError){
              Log.d("ERROR", e.message)
          })
@@ -56,7 +56,7 @@ class SearchActivity : AppCompatActivity() {
         if(list != null){
             list!!.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
             val bAdap = BookAdapter(books)
-            list!!.adapter = bAdap;
+            list!!.adapter = bAdap
         }
     }
 }

@@ -13,12 +13,12 @@ import java.util.*
 class FirebaseStorageController(userID:String,context: Context) {
     val storage = FirebaseStorage.getInstance()
     val storageRef = storage.getReference("/Test")
-    var userID = "";
-    var context = context;
+    var userID = ""
+    var context = context
 
     init {
-        this.userID = userID;
-        this.context = context;
+        this.userID = userID
+        this.context = context
     }
 
     fun setFile(data:Uri, successCallback: (uploader:FirebaseStorageUploader) -> Unit
@@ -39,8 +39,8 @@ class FirebaseStorageController(userID:String,context: Context) {
                     failedCallback(exception)
                 }
                 .addOnProgressListener { taskSnapshot ->
-                    val progress = 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount()
-                    progressCallback(progress);
+                    val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                    progressCallback(progress)
                 }
     }
 
@@ -58,13 +58,13 @@ class FirebaseStorageController(userID:String,context: Context) {
     }
 
     fun getFileType(uri: Uri): String? {
-        val cR = context.getContentResolver()
+        val cR = context.contentResolver
         val mime = MimeTypeMap.getSingleton()
         val type = mime.getExtensionFromMimeType(cR.getType(uri))
-        return type;
+        return type
     }
 
     fun getRandomFileName():String{
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString()
     }
 }

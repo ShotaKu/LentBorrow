@@ -26,14 +26,14 @@ class UserBookActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val lvCon = LocalValueController(this)
-        val id = lvCon.getID();
-        val bCon = BookController();
+        val id = lvCon.getID()
+        val bCon = BookController()
         if(!id.isEmpty()){
             bCon.getBooksByOwnerID(id,{ books -> run {
-                val list = bookList_userBooks;
+                val list = bookList_userBooks
                 list.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
                 val bList = BookAdapter(books)
-                list.adapter = bList;
+                list.adapter = bList
             } },{error ->
                 MessageController(this).showToast(error.message)
             })

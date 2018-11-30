@@ -23,7 +23,7 @@ class NewRequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter
 
     }
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
 
     }
 }
