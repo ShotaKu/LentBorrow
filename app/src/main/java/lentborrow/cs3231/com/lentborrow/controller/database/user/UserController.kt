@@ -33,6 +33,12 @@ class UserController : DatabaseController(){
                 ,failedCallback)
     }
 
+    fun createReview(target:User,review:Review):Review{
+        val reviewID = this.pushObject("User/"+target.userID+"/Review",review.getDatabaseForm())
+        review.id = reviewID;
+        return review;
+    }
+
     fun searchUserByEmail(email: String, snapShot: DataSnapshot):Boolean{
         var result:Boolean = false
 
