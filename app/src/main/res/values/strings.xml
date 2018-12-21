@@ -9,9 +9,18 @@
     </string-array>
 
     <string-array name="categoryList">
-        <item>Choose vook category...</item>
+        <item>Choose book category...</item>
         <item>Textbook</item>
         <item>Manga</item>
         <item>Novel</item>
     </string-array>
+
+    <string-array name="myBookList">
+        <item>Choose book ...</item>
+    </string-array>
+    <string-array name="date">
+        <item>Choose trade date ...</item>
+    </string-array>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

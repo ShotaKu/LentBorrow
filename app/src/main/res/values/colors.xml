@@ -6,7 +6,7 @@
     <color name="customColorBackgraund">#f5f5dc</color>
     <color name="customCellBackgraund">#eae9b1</color>
     <color name="customCellLine">#D7D466</color>
-    <!--<color name="colorPrimary">#d6d665</color>-->
-    <!--<color name="colorPrimaryDark">#b8b856</color>-->
-    <!--<color name="colorAccent">#40a0ff</color>-->
+    <color name="accepted">#62a262</color>
+    <color name="rejected">#b27a6d</color>
+    <color name="pedding">#b0b06b</color>
 </resources>

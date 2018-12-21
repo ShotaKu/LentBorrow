@@ -24,23 +24,27 @@ class BookAdapter(val requests: ArrayList<Book>): RecyclerView.Adapter<BookAdapt
 
     override fun onBindViewHolder(viewHolder: BookAdapter.ViewHolder, p1: Int) {
         var name = requests[p1].name
-        var tType = requests[p1].tradeType;
+        if(20<name.length)
+            name = name.substring(0,19)+"..."
+        var tType = requests[p1].tradeType
         if(tType == "for both lenting and trading")
-            tType = "lending/trading";
-        viewHolder.id = requests[p1].id;
-        viewHolder.bookName.setText(name);
-        viewHolder.tType.setText(tType)
+            tType = "lending/trading"
+        viewHolder.id = requests[p1].id
+        viewHolder.bookName.text = name
+        viewHolder.tType.text = tType
         viewHolder.itemView.setOnClickListener {
             val amCon = ActivityMigrationController()
             amCon.setBookDetail(viewHolder.itemView.context)
                     .pass("bookID",viewHolder.id)
-                    .go();
+                    .go()
+
+
         }
     }
 
     class ViewHolder(v: View): RecyclerView.ViewHolder(v) {
         val bookName = v.bookName_bookCell
         val tType = v.tradeType_bookCell
-        var id = "";
+        var id = ""
     }
 }

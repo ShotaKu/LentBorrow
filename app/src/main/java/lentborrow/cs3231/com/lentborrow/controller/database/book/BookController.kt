@@ -6,12 +6,16 @@ import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseController
 import lentborrow.cs3231.com.lentborrow.controller.database.user.UserController
 import java.lang.Boolean.parseBoolean
 
-class BookController(): DatabaseController(){
+class BookController : DatabaseController(){
     fun create(book: Book,userID:String): Book {
-        val bookID = this.pushObject("Book",book.getDatabaseForm(),false);
-        this.pushString("User/"+userID+"/Lending",bookID);
-        book.id = bookID;
-        return book;
+        val bookID = this.pushObject("Book",book.getDatabaseForm(),false)
+        this.pushString("User/"+userID+"/Lending",bookID)
+        book.id = bookID
+        return book
+    }
+
+    fun change(book: Book){
+        setObject("Book/"+book.id,book.getDatabaseForm())
     }
 
     fun getBooksByName(name:String, successCallback: (books: ArrayList<Book>) -> Unit   // Unit = void
@@ -36,9 +40,27 @@ class BookController(): DatabaseController(){
                 ,failedCallback)
     }
 
+    fun getRequest(id:String, successCallback: (book: Book?) -> Unit   // Unit = void
+                    , failedCallback:(error: DatabaseError) -> Unit){
+        //@TODO should not search, just refer to book URL directly.
+        find("Request",
+                { s: DataSnapshot -> s.child("bookID").value.toString() == id }
+                ,{ snapShots -> run {
+            if(!snapShots.isEmpty())
+                successCallback(snapShotBookAdapter(snapShots)[0])
+            else
+                successCallback(null)
+        }}
+                ,failedCallback)
+
+
+
+    }
+
+
     fun getBooksByOwnerID(id:String, successCallback: (books: ArrayList<Book>) -> Unit   // Unit = void
                           , failedCallback:(error: DatabaseError) -> Unit){
-        val uCon = UserController();
+        val uCon = UserController()
         uCon.getUserByID(id,{user -> run {
             getBooksByIDs(ArrayList(user.lending),{ books ->
                 successCallback(books)
@@ -47,6 +69,16 @@ class BookController(): DatabaseController(){
             })
         } },{error -> failedCallback(error) })
     }
+
+
+    fun getLendingKey(id:String, successCallback: (Key: ArrayList<String>) -> Unit   // Unit = void
+                      , failedCallback:(error: DatabaseError) -> Unit){
+        val uCon = UserController()
+        uCon.getUserByID(id,{user -> run {
+            successCallback(ArrayList(user.lendingKey))
+        } },{error -> failedCallback(error) })
+    }
+
 
     fun getBooksByIDs(id:ArrayList<String>, successCallback: (books: ArrayList<Book>) -> Unit   // Unit = void
                      , failedCallback:(error: DatabaseError) -> Unit){
@@ -57,61 +89,72 @@ class BookController(): DatabaseController(){
                 ,failedCallback)
     }
 
-    final fun snapShotBookAdapter(snapShot: DataSnapshot):Book{
-        val id = snapShot.key.toString();
+
+    fun FilterByAvailableBook(books:ArrayList<Book>):ArrayList<Book>{
+        val filtered = arrayListOf<Book>()
+        for (book in books){
+            if(!book.isBorrowed && !book.isUsedForRequest){
+                filtered.add(book)
+            }
+        }
+        return filtered
+    }
+
+    private fun snapShotBookAdapter(snapShot: DataSnapshot):Book{
+        val id = snapShot.key.toString()
         val category = snapShot.child("category").value.toString()
         val imageURL = snapShot.child("image").value.toString()
         val isBorrowed = parseBoolean(snapShot.child("isBorrowed").value.toString())
         val isUsedForRequest = parseBoolean(snapShot.child("isUsedForRequest").value.toString())
         val lentBy = snapShot.child("lentBy").value.toString()
         val locate = snapShot.child("locate").value.toString()
-        val name = snapShot.child("name").value.toString();
+        val name = snapShot.child("name").value.toString()
         val requester = snapShot.child("requester").value.toString()
         val tradeType  =snapShot.child("tradeType").value.toString()
         return Book(id, category, imageURL, isBorrowed, isUsedForRequest
                 , lentBy, locate, name, requester, tradeType)
     }
 
-    fun snapShotBookAdapter(snapShots: ArrayList<DataSnapshot>): ArrayList<Book> {
+    private fun snapShotBookAdapter(snapShots: ArrayList<DataSnapshot>): ArrayList<Book> {
         val list = ArrayList<Book>()
         for (snapShot in snapShots){
             list.add(snapShotBookAdapter(snapShot))
         }
-        return list;
+        return list
     }
 
     private fun searchBookByName(keyName: String, snapShot: DataSnapshot):Boolean{
-        var result:Boolean = false;
+        var result:Boolean = false
 
-        val name = snapShot.child("name").value.toString();
+        val name = snapShot.child("name").value.toString()
         val reg = Regex(keyName)
         if(reg.containsMatchIn(name)){
-            result = true;
+            result = true
         }
 
-        return result;
+        return result
     }
 
     private fun searchBookByID(keyID: ArrayList<String>, snapShot: DataSnapshot):Boolean{
-        var result:Boolean = false;
+        var result:Boolean = false
 
-        val id = snapShot.key.toString();
+        val id = snapShot.key.toString()
         if(keyID.contains(id)){
-            result = true;
+            result = true
         }
 
-        return result;
+        return result
     }
 
     private fun searchBookByID(keyID: String, snapShot: DataSnapshot):Boolean{
-        var result:Boolean = false;
+        var result:Boolean = false
 
-        val id = snapShot.key.toString();
+        val id = snapShot.key.toString()
         if(keyID == id) {
-            result = true;
+            result = true
 
         }
 
-        return result;
+        return result
     }
 }

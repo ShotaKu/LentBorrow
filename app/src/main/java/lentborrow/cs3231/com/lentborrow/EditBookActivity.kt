@@ -15,20 +15,55 @@ import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.controller.storage.FirebaseStorageController
+import lentborrow.cs3231.com.lentborrow.generic.ImageDownloader
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
 import java.io.IOException
 
+class EditBookActivity : AppCompatActivity() {
 
-class AddBookActivity : AppCompatActivity() {
     //private val REQUEST_CAMERA = 0
     private val SELECT_FILE = 1
     private var dataPath: Uri? = null
+    var bookID = ""
+    var bCon = BookController()
+    var showedBook: Book? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_book)
+        setContentView(R.layout.activity_edit_book)
+        bookID = intent.getStringExtra("bookID")
+        getBook(bookID)
     }
 
+    fun getBook(bookID: String){
+        bCon.getBookByID(bookID, { book ->
+            if (book != null) {
+                showedBook = book
+                showBookDetail(book)
+            } else
+                MessageController(this).showToast("Book detail broken")
+        }, { error ->
+            MessageController(this).showToast("Book not found")
+        })
+    }
+
+    fun showBookDetail(book: Book)
+    {
+        val CList = ArrayList<String>()
+        val TList = ArrayList<String>()
+        CList.add("Textbook")
+        CList.add("Manga")
+        CList.add("Novel")
+        TList.add("for trading")
+        TList.add("for lending")
+        TList.add("for both lending and trading")
+        bookName_addBook.setText(book.name)
+        tradeAt_addBook.setText(book.locate)
+        category_addBook.setSelection(CList.indexOf(book.category)+1)
+        tradeType_addBook.setSelection(TList.indexOf(book.tradeType)+1)
+        val iDown = ImageDownloader(book.imageURL, cameraIcon_addBook)
+        iDown.startDownload()
+    }
 
     fun onClickLoadImage(view: View) {
         galleryIntent()
@@ -90,10 +125,10 @@ class AddBookActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Upload Finish!!", Toast.LENGTH_LONG)
                                 val imageURL = uploader.downloadURL.toString()
                                 Log.d("Debug", imageURL)
-                                var newBook = Book(categorySpr
+                                var editBook = Book(bookID,categorySpr
                                         , imageURL, false, false, userID, tradeAtTv
                                         , bookNameTv, "N/A", tradeTypeSpr)
-                                newBook = bCon.create(newBook, userID)
+                                bCon.change(editBook)
                                 finish()
                                 //ActivityMigrationController().setUserBook(this).go()
                             }, { exeption ->

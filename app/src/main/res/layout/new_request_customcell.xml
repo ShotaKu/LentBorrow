@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/newRequestCell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        android:focusable="auto"
+        tools:layout_editor_absoluteX="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/customcell_radius"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:foregroundGravity="center">
+
+                <ImageView
+                    android:id="@+id/tradeWithImage_newReqCell"
+                    android:layout_width="80dp"
+                    android:layout_height="145dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ProgressBar
+                    android:id="@+id/loading2_reqestCell"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bookName_newReqCell"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="24sp"
+                    tools:text="*******************" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    app:srcCompat="@drawable/double_arrow" />
+
+                <TextView
+                    android:id="@+id/tradeWithName_newReqCell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="24sp"
+                    tools:text="******************" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tradeDate_newReqCell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView"
+                        android:textSize="18sp"
+                        tools:text="****-**-**" />
+
+                    <TextView
+                        android:id="@+id/tradeTime_newReqCell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView"
+                        android:textSize="18sp"
+                        tools:text="**:**" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:foregroundGravity="center">
+
+                <ImageView
+                    android:id="@+id/bookImage_newReqCel"
+                    android:layout_width="80dp"
+                    android:layout_height="145dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ProgressBar
+                    android:id="@+id/loading1_newReqCell"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
