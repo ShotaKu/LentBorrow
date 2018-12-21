@@ -33,7 +33,6 @@ class EditBookActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_book)
         bookID = intent.getStringExtra("bookID")
         getBook(bookID)
-
     }
 
     fun getBook(bookID: String){

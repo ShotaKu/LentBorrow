@@ -40,6 +40,24 @@ class BookController : DatabaseController(){
                 ,failedCallback)
     }
 
+    fun getRequest(id:String, successCallback: (book: Book?) -> Unit   // Unit = void
+                    , failedCallback:(error: DatabaseError) -> Unit){
+        //@TODO should not search, just refer to book URL directly.
+        find("Request",
+                { s: DataSnapshot -> s.child("bookID").value.toString() == id }
+                ,{ snapShots -> run {
+            if(!snapShots.isEmpty())
+                successCallback(snapShotBookAdapter(snapShots)[0])
+            else
+                successCallback(null)
+        }}
+                ,failedCallback)
+
+
+
+    }
+
+
     fun getBooksByOwnerID(id:String, successCallback: (books: ArrayList<Book>) -> Unit   // Unit = void
                           , failedCallback:(error: DatabaseError) -> Unit){
         val uCon = UserController()
@@ -52,6 +70,16 @@ class BookController : DatabaseController(){
         } },{error -> failedCallback(error) })
     }
 
+
+    fun getLendingKey(id:String, successCallback: (Key: ArrayList<String>) -> Unit   // Unit = void
+                      , failedCallback:(error: DatabaseError) -> Unit){
+        val uCon = UserController()
+        uCon.getUserByID(id,{user -> run {
+            successCallback(ArrayList(user.lendingKey))
+        } },{error -> failedCallback(error) })
+    }
+
+
     fun getBooksByIDs(id:ArrayList<String>, successCallback: (books: ArrayList<Book>) -> Unit   // Unit = void
                      , failedCallback:(error: DatabaseError) -> Unit){
 
@@ -60,6 +88,7 @@ class BookController : DatabaseController(){
                 ,{ snapShots -> successCallback(snapShotBookAdapter(snapShots)) }
                 ,failedCallback)
     }
+
 
     fun FilterByAvailableBook(books:ArrayList<Book>):ArrayList<Book>{
         val filtered = arrayListOf<Book>()
