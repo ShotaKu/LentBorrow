@@ -14,6 +14,9 @@ import lentborrow.cs3231.com.lentborrow.controller.auth.LoginController
 import lentborrow.cs3231.com.lentborrow.controller.database.user.UserController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
+import com.google.firebase.auth.FirebaseUser
+
+
 
 class LoginActivity : AppCompatActivity() {
     var fbAuth = FirebaseAuth.getInstance()
@@ -22,7 +25,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        logOut()
+        val currentUser = fbAuth.getCurrentUser()
+        if (currentUser != null) {
+            val amCon = ActivityMigrationController()
+            amCon.setMain(this).go()
+            finish()
+        } else {
+            logOut()
+        }
     }
 
     fun logOut(){
@@ -89,8 +99,16 @@ class LoginActivity : AppCompatActivity() {
                     //@TODO go to Trade Schedule
                     lvCon.setID(user.userID)
                     val amCon = ActivityMigrationController()
+<<<<<<< HEAD
                     amCon.setRequestBoxActivity(this)
                             .pass("status","waiting").go()
+=======
+                    /*amCon.setRequestBoxActivity(this)
+                            .pass("status","waiting").go()*/
+                    amCon.setMain(this).go()
+                    finish()
+
+>>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
 //                    amCon.setRequestBoxActivity(this)
 //                            .pass("email",email)
 //                            .go()

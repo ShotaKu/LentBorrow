@@ -57,15 +57,29 @@ class UserController : DatabaseController(){
         val email:String = snapShot.child("email").value.toString()
         val name:String = snapShot.child("name").value.toString()
         val lending:ArrayList<String> = ArrayList()
+<<<<<<< HEAD
+=======
+        val lendingKey:ArrayList<String> = ArrayList()
+>>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
         val reviews:ArrayList<Review> = arrayListOf()
         for(book in snapShot.child("Lending").children){
             lending.add(book.value.toString())
         }
+<<<<<<< HEAD
+=======
+        for(book in snapShot.child("Lending").children){
+            lendingKey.add(book.key.toString())
+        }
+>>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
         for(review in snapShot.child("Review").children){
             reviews.add(Review.dataSnapshotAdapter(review))
         }
 
+<<<<<<< HEAD
         return User(userID,userName,email,name,lending,reviews)
+=======
+        return User(userID,userName,email,name,lending,lendingKey,reviews)
+>>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
     }
 
     fun searchUserByID(id: String, snapShot: DataSnapshot):Boolean{

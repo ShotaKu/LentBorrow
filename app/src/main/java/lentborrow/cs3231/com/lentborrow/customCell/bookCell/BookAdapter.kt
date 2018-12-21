@@ -37,6 +37,11 @@ class BookAdapter(val requests: ArrayList<Book>): RecyclerView.Adapter<BookAdapt
             amCon.setBookDetail(viewHolder.itemView.context)
                     .pass("bookID",viewHolder.id)
                     .go()
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
         }
     }
 
