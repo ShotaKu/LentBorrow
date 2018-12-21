@@ -25,14 +25,8 @@ open class ActivityMigrationBuilder{
             ,"AddBook" to AddBookActivity::class.java
             ,"UserBook" to UserBookActivity::class.java
             //@ToDo: To Fook -> Please edit as EditBookActivity::class.java when you finish create the activity .kt
-<<<<<<< HEAD
             ,"EditBook" to UserBookActivity::class.java
             ,"RequestLog" to RequestLogActivity::class.java
-=======
-            ,"EditBook" to EditBookActivity::class.java
-            ,"RequestLog" to RequestLogActivity::class.java
-            ,"Main" to MainActivity::class.java
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
             //@TODO: To Navin -> Please edit as RequestDetailActivity::class.java when you finish create the activity .kt
             ,"RequestDetail" to RequestLogActivity::class.java
     )

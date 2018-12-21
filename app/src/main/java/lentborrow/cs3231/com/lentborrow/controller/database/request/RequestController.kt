@@ -53,13 +53,6 @@ class RequestController :DatabaseController(){
         })
     }
 
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
     fun getRequestByRequestID(requestID:String,successCallback: (request:Request) -> Unit   // Unit = void
                               , failedCallback:(error: DatabaseError) -> Unit){
 
@@ -88,11 +81,6 @@ class RequestController :DatabaseController(){
         return result
     }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
     private fun searchRequestByRequesterID(requesterID: String,snapshot: DataSnapshot):Boolean{
         return search("requesterID", requesterID, snapshot)
     }

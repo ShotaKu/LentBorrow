@@ -13,10 +13,6 @@ import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.database.request.Request
 import lentborrow.cs3231.com.lentborrow.controller.database.request.RequestController
-<<<<<<< HEAD
-=======
-import lentborrow.cs3231.com.lentborrow.controller.database.user.UserController
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.generic.ImageDownloader
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
@@ -33,24 +29,12 @@ class BookDetailActivity : AppCompatActivity() {
     val cal = Calendar.getInstance()
     val RESULT_FROM_DATEPICKER = 1
     val RESULT_FROM_TIMEPICKER = 2
-<<<<<<< HEAD
-=======
-    var amController = ActivityMigrationController()
-    var bookID = ""
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
 
-<<<<<<< HEAD
         var bookID = intent.getStringExtra("bookID")
-=======
-        amController = ActivityMigrationController()
-
-        bookID = intent.getStringExtra("bookID")
-
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
         getBook(bookID)
     }
 
@@ -93,7 +77,6 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     var ownerID = ""
-<<<<<<< HEAD
 
     private fun switchUserBook(isUsers: Boolean) {
         if (isUsers) {
@@ -105,19 +88,6 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-=======
-
-    private fun switchUserBook(isUsers: Boolean) {
-        if (isUsers) {
-            showMessage("This is your book")
-            editBook_detail.visibility = View.VISIBLE
-        } else {
-            hideMessage()
-            editBook_detail.visibility = View.INVISIBLE
-        }
-    }
-
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
     private fun switchRequested(isRequested: Boolean) {
         if (isRequested) {
             showMessage("You already request the book. \n Wait for owner reaction")
@@ -179,7 +149,6 @@ class BookDetailActivity : AppCompatActivity() {
 
         })
     }
-<<<<<<< HEAD
 
     fun toEditBook(view: View){
         ActivityMigrationController()
@@ -188,16 +157,6 @@ class BookDetailActivity : AppCompatActivity() {
                 .go()
     }
 
-=======
-
-    fun toEditBook(view: View){
-        ActivityMigrationController()
-                .setEditBook(this)
-                .pass("bookID",showedBook!!.id)
-                .go()
-    }
-
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
     private fun setTradeOnDatePicker() {
         val text = tradeOnDate_detail
         val target = datePicker
@@ -214,28 +173,8 @@ class BookDetailActivity : AppCompatActivity() {
                 text.text = year.toString() + "-" + monthOfYear + "-" + dayOfMonth
             }, yea, mon, date)
             dpd.show()
-<<<<<<< HEAD
-=======
         }
 
-    }
-
-    private fun setTradeOnTimePicker() {
-        val text = tradeOnTime_detail
-        val target = timePicker
-        target.setOnClickListener {
-            val h = cal.get(Calendar.HOUR)
-            val m = cal.get(Calendar.MINUTE)
-
-            val tpd = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hour, min ->
-                text.text = hour.toString() + ":" + min.toString()
-            }, h, m, false)
-            tpd.show()
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
-        }
-    }
-
-<<<<<<< HEAD
     }
 
     private fun setTradeOnTimePicker() {
@@ -277,77 +216,6 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
     }
-=======
-    fun sendRequest(view: View) {
-        val date = tradeOnDate_detail.text.toString()
-        val time = tradeOnTime_detail.text.toString()
-        val tradeWithIndex = tradeWith_detail.selectedItemPosition
-        if (!date.isEmpty()) {
-            if (!time.isEmpty()) {
-                if (0 <= tradeWithIndex) {
-                    val tradeWith = userBooks[tradeWithIndex]
-                    val lvCon = LocalValueController(this)
-                    val request = Request(showedBook!!.id
-                            , date
-                            , showedBook!!.lentBy
-                            , lvCon.getID()
-                            , "wait for check"
-                            , time
-                            , tradeWith.id)
-                    tradeWith.isUsedForRequest = true
-                    bCon.change(tradeWith)
-                    rCon.create(request)
-                    finish()
-                }
-            }
-        }
-    }
-
-    fun ToDeleteBook(view: View)
-    {
-
-       bCon.getRequest(bookID, { book ->
-            if (book != null) {
-                showedBook = book
-
-                val lvCon = LocalValueController(this)
-                rCon.getRequestsByBookID(book.id, { requests ->
-                    for (request in requests) {
-                        if (request.requesterID == lvCon.getID()) {
-                            //DELETE
-                            bCon.deleteObject("Request/"+request.requestID)
-                        }
-                    }
-                }, { error ->
-                    MessageController(this).showToast("Error while getting book request")
-                })
-            } else
-            //NO REQUESTS
-                MessageController(this).showToast("Request not found")
-        }, { error ->
-            MessageController(this).showToast("Book not found")
-        })
-
-        bCon.deleteObject("Book/"+bookID)
-
-        val lvCon = LocalValueController(this)
-        val id = lvCon.getID()
-        if(!id.isEmpty()){
-            bCon.getLendingKey(id,{ keys -> run {
-                for(k in keys)
-                {
-                    bCon.DeleteLendingKey(id,k,bookID)
-                }
-            } },{error ->
-                MessageController(this).showToast(error.message)
-            })
-        }
-
-        amController.setMain(this).go()
-
-    }
-
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
 }
 
 
