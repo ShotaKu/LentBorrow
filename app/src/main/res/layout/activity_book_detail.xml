@@ -225,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/sendButton_detail"
@@ -234,19 +234,6 @@
                 android:layout_weight="1"
                 android:onClick="sendRequest"
                 android:text="Send"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="439dp" />
-
-
-            <Button
-                android:id="@+id/DeleteBook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_weight="1"
-                android:onClick="ToDeleteBook"
-                android:text="Delete BooK"
                 android:textSize="14sp"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="439dp" />
@@ -267,7 +254,7 @@
         android:layout_marginTop="8dp"
         android:onClick="toEditBook"
         android:text="Edit"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/yourbook_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.033"

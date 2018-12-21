@@ -53,10 +53,6 @@ class RequestController :DatabaseController(){
         })
     }
 
-
-
-
-
     fun getRequestByRequestID(requestID:String,successCallback: (request:Request) -> Unit   // Unit = void
                               , failedCallback:(error: DatabaseError) -> Unit){
 
@@ -84,8 +80,6 @@ class RequestController :DatabaseController(){
 
         return result
     }
-
-
 
     private fun searchRequestByRequesterID(requesterID: String,snapshot: DataSnapshot):Boolean{
         return search("requesterID", requesterID, snapshot)

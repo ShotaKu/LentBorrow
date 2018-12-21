@@ -10,7 +10,6 @@ class User(){
     var email:String = ""
     var name:String = ""
     var lending:List<String> = emptyList()
-    var lendingKey:List<String> = emptyList()
     var reviews:ArrayList<Review> = ArrayList()
 
     constructor(userName:String,email:String):this(){
@@ -19,22 +18,21 @@ class User(){
         this.name = "Anonymous user"
     }
 
-    constructor(userID:String, userName: String,email: String,name:String,lending:List<String>,lendingKey: List<String>):this(){
+    constructor(userID:String, userName: String,email: String,name:String,lending:List<String>):this(){
         this.userName = userName
         this.email = email
         this.name = name
         this.lending = lending
-        this.lendingKey = lendingKey
         this.userID = userID
     }
-    constructor(userID:String, userName: String,email: String,name:String,lending:List<String>,lendingKey:List<String>, reviews: ArrayList<Review>):this(userID,userName,email,name,lending,lendingKey){
+    constructor(userID:String, userName: String,email: String,name:String,lending:List<String>, reviews: ArrayList<Review>):this(userID,userName,email,name,lending){
         this.reviews = reviews
     }
 
     fun getDatabaseForm():DatabaseForm{
-        return databaseForm(userName,email,name,lending,lendingKey,reviews)
+        return databaseForm(userName,email,name,lending,reviews)
     }
 
-    data class databaseForm(val userName: String, val email: String, val name:String,val lending:List<String>,val lendingKey:List<String>, val reviews:List<Review>):DatabaseForm()
+    data class databaseForm(val userName: String, val email: String, val name:String,val lending:List<String>, val reviews:List<Review>):DatabaseForm()
 
 }

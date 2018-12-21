@@ -5,10 +5,6 @@ import com.google.firebase.database.*
 import lentborrow.cs3231.com.lentborrow.controller.database.user.User
 import com.google.firebase.database.DataSnapshot
 import java.lang.reflect.Array
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-
-
 
 
 open class DatabaseController {
@@ -41,12 +37,6 @@ open class DatabaseController {
         val myRef = database.getReference(path)
         myRef.setValue(value)
     }
-
-    fun deleteObject(path:String){
-        val myRef = database.getReference(path)
-        myRef.removeValue()
-    }
-
 
     fun pushObject(path:String,value: DatabaseForm, withPath:Boolean = true):String{
         val myRef = database.getReference(path)
@@ -91,8 +81,6 @@ open class DatabaseController {
         })
     }
 
-
-
     fun finds(path:String, searchCallback: (snapShot:DataSnapshot) -> Boolean
              , successCallback: (snapShot:DataSnapshot) -> Unit   // Unit = void
              , notFoundCallback:(error: DatabaseError) -> Unit){
@@ -116,22 +104,4 @@ open class DatabaseController {
             }
         })
     }
-
-    fun DeleteLendingKey(ID:String,key:String,bookID:String)
-    {
-        val myRef = database.getReference("User/"+ID+"/Lending/"+key)
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-               if(dataSnapshot.value.toString().equals(bookID))
-               {
-                   myRef.removeValue()
-               }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-            }
-        })
-    }
-
 }

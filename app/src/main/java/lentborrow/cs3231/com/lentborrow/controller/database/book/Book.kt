@@ -16,8 +16,6 @@ class Book() {
     var tradeType = ""
 
 
-
-
     constructor(id: String, category: String, imageURL: String, isBorrowed: Boolean, isUsedForRequest: Boolean
                 , lentBy: String, locate: String, name: String, reqester: String, tradeType: String) : this() {
         this.id = id
