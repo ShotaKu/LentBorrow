@@ -52,4 +52,8 @@ class ActivityMigrationController() : ActivityMigrationBuilder(){
         return ActivityMigrationController(context,"RequestDetail")
     }
 
+    fun setMain(context: Context):ActivityMigrationController{
+        return ActivityMigrationController(context,"Main")
+    }
+
 }

@@ -13,6 +13,7 @@ import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
 import lentborrow.cs3231.com.lentborrow.controller.database.request.Request
 import lentborrow.cs3231.com.lentborrow.controller.database.request.RequestController
+import lentborrow.cs3231.com.lentborrow.controller.database.user.UserController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.generic.ImageDownloader
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
@@ -29,12 +30,17 @@ class BookDetailActivity : AppCompatActivity() {
     val cal = Calendar.getInstance()
     val RESULT_FROM_DATEPICKER = 1
     val RESULT_FROM_TIMEPICKER = 2
+    var amController = ActivityMigrationController()
+    var bookID = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
 
-        var bookID = intent.getStringExtra("bookID")
+        amController = ActivityMigrationController()
+
+        bookID = intent.getStringExtra("bookID")
+
         getBook(bookID)
     }
 
@@ -214,8 +220,52 @@ class BookDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun ToDeleteBook(view: View)
+    {
+
+       bCon.getRequest(bookID, { book ->
+            if (book != null) {
+                showedBook = book
+
+                val lvCon = LocalValueController(this)
+                rCon.getRequestsByBookID(book.id, { requests ->
+                    for (request in requests) {
+                        if (request.requesterID == lvCon.getID()) {
+                            //DELETE
+                            bCon.deleteObject("Request/"+request.requestID)
+                        }
+                    }
+                }, { error ->
+                    MessageController(this).showToast("Error while getting book request")
+                })
+            } else
+            //NO REQUESTS
+                MessageController(this).showToast("Request not found")
+        }, { error ->
+            MessageController(this).showToast("Book not found")
+        })
+
+        bCon.deleteObject("Book/"+bookID)
+
+        val lvCon = LocalValueController(this)
+        val id = lvCon.getID()
+        if(!id.isEmpty()){
+            bCon.getLendingKey(id,{ keys -> run {
+                for(k in keys)
+                {
+                    bCon.DeleteLendingKey(id,k,bookID)
+                }
+            } },{error ->
+                MessageController(this).showToast(error.message)
+            })
+        }
+
+        amController.setMain(this).go()
 
     }
+
 }
 
 
