@@ -13,14 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RequestBoxActivity" />
         <activity android:name=".RequestDetailActivity" />
         <activity android:name=".BookDetailActivity" />
@@ -30,14 +30,8 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".UserBookActivity" />
         <activity android:name=".AddBookActivity" />
-<<<<<<< HEAD
         <activity android:name=".RequestLogActivity"></activity>
-=======
-        <activity android:name=".RequestLogActivity" />
-        <activity android:name=".EditBooK" />
-        <activity android:name=".generic.EditBookActivity" />
-        <activity android:name=".EditBookActivity"></activity>
->>>>>>> 053d92e2f795e298b8040ded6178a2ef6024a07a
+
     </application>
 
 </manifest>
