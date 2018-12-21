@@ -12,7 +12,6 @@ class UserController : DatabaseController(){
         user.userID = userID
         return user
     }
-
     fun getUserByEmail(email:String, successCallback: (user: User) -> Unit   // Unit = void
     , failedCallback:(error: DatabaseError) -> Unit){
 
@@ -34,8 +33,8 @@ class UserController : DatabaseController(){
                 ,failedCallback)
     }
 
-    fun createReview(userID:String,review:Review):Review{
-        val reviewID = this.pushObject("User/"+userID+"/Review",review.getDatabaseForm(),false)
+    fun createReview(target:User,review:Review):Review{
+        val reviewID = this.pushObject("User/"+target.userID+"/Review",review.getDatabaseForm())
         review.id = reviewID;
         return review;
     }
