@@ -78,10 +78,11 @@ open class DatabaseController {
                         result.add(snapshot)
                     }
                 }
-                if(result.isEmpty())
-                    notFoundCallback(DatabaseError.fromCode(DatabaseError.UNAVAILABLE))
-                else
-                    successCallback(result)
+//                if(result.isEmpty())
+//                    notFoundCallback(DatabaseError.fromCode(DatabaseError.UNAVAILABLE))
+//                else
+//                    successCallback(result)
+                successCallback(result)
             }
 
             override fun onCancelled(error: DatabaseError) {

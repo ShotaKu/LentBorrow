@@ -51,19 +51,28 @@ class BookDetailActivity : AppCompatActivity() {
                 showedBook = book
                 showBookDetail(book)
                 val lvCon = LocalValueController(this)
-                rCon.getRequestsByBookID(book.id, { requests ->
-                    for (request in requests) {
-                        if (request.requesterID == lvCon.getID()) {
-                            if (request.status == "wait for check"){
-                                switchRequested(true)
-                                break
+
+                var isUsers = lvCon.getID() == book.lentBy
+
+                if(!isUsers){
+                    rCon.getRequestsByBookID(book.id, { requests ->
+                        var isRequested = false;
+                        for (request in requests) {
+                            if (request.requesterID == lvCon.getID()) {
+                                if (request.status == "wait for check"){
+                                    isRequested = true;
+                                    break
+                                }
                             }
                         }
-                    }
-                    switchUserBook(lvCon.getID() == book.lentBy)
-                }, { error ->
-                    MessageController(this).showToast("Error when get request information")
-                })
+                        switchRequested(isRequested)
+                    }, { error ->
+                        MessageController(this).showToast("Error when get request information")
+                    })
+                }
+                else{
+                    switchUserBook(isUsers)
+                }
             } else
                 MessageController(this).showToast("Book detail broken")
         }, { error ->
@@ -88,9 +97,12 @@ class BookDetailActivity : AppCompatActivity() {
         if (isUsers) {
             showMessage("This is your book")
             editBook_detail.visibility = View.VISIBLE
+            sendButton_detail.visibility = View.INVISIBLE
         } else {
             hideMessage()
             editBook_detail.visibility = View.INVISIBLE
+            sendButton_detail.visibility = View.VISIBLE
+
         }
     }
 
@@ -99,6 +111,9 @@ class BookDetailActivity : AppCompatActivity() {
             showMessage("You already request the book. \n Wait for owner reaction")
         } else {
             hideMessage()
+            setTradeWithSpinner()
+            setTradeOnDatePicker()
+            setTradeOnTimePicker()
         }
     }
 
@@ -109,19 +124,17 @@ class BookDetailActivity : AppCompatActivity() {
     private fun showMessage(message: String) {
         val userBook = yourbook_detail
         yourbook_detail.text = message
-        val requestForm = requestForm_detail
+        //val requestForm = requestForm_detail
         userBook.visibility = View.VISIBLE
-        requestForm.visibility = View.INVISIBLE
+        //requestForm.visibility = View.INVISIBLE
     }
 
     private fun hideMessage() {
         val userBook = yourbook_detail
-        val requestForm = requestForm_detail
+        //val requestForm = requestForm_detail
         userBook.visibility = View.INVISIBLE
-        requestForm.visibility = View.VISIBLE
-        setTradeWithSpinner()
-        setTradeOnDatePicker()
-        setTradeOnTimePicker()
+        //requestForm.visibility = View.VISIBLE
+
     }
 
     fun toUserDetail(view: View) {
@@ -262,7 +275,9 @@ class BookDetailActivity : AppCompatActivity() {
             })
         }
 
-        amController.setMain(this).go()
+        //amController.setMain(this).go()
+        //go back to last page.
+        finish()
 
     }
 

@@ -25,12 +25,12 @@ class FirebaseStorageController(userID:String,context: Context) {
                 , failedCallback: (exeption: Exception) -> Unit
                 , progressCallback:(progress:Double)->Unit ){
         val imageRef = storage.getReference(userID+"/"+getRandomFileName()+getFileType(data))
-        storageRef.putFile(data)
+        imageRef.putFile(data)
                 .addOnSuccessListener { taskSnapshot ->
                     //@TODO: test
-                    storageRef.downloadUrl.addOnSuccessListener{ uri ->
+                    imageRef.downloadUrl.addOnSuccessListener{ uri ->
                         val uploader = FirebaseStorageUploader(data,context)
-                        uploader.setUploadFinish(storageRef.path,storageRef,uri)
+                        uploader.setUploadFinish(imageRef.path,imageRef,uri)
                         successCallback(uploader)
                     }
                 }
