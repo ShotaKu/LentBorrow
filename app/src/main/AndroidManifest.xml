@@ -33,7 +33,8 @@
         <activity android:name=".RequestLogActivity" />
         <activity android:name=".EditBooK" />
         <activity android:name=".generic.EditBookActivity" />
-        <activity android:name=".EditBookActivity"></activity>
+        <activity android:name=".EditBookActivity" />
+        <activity android:name=".generic.Option"></activity>
     </application>
 
 </manifest>
