@@ -15,7 +15,7 @@ class RequestDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_detail)
-        title = "Request Detail"
+        title = "RequestDetail"
         val mCon = MessageController(this)
 
         val rCon = RequestController()
