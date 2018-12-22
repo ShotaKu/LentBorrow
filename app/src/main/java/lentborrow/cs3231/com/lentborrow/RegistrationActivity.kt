@@ -49,8 +49,7 @@ class RegistrationActivity : AppCompatActivity() {
                                 mCon.showToast("Hi," + email)
                                 //@TODO go to Trade Schedule
                                 val amCon = ActivityMigrationController()
-                                amCon.setRequestBoxActivity(this)
-                                        .pass("status","waiting").go()
+                                amCon.setMain(this).go()
                             }
                             , fun(task: Task<AuthResult>) {
                         //Failed
