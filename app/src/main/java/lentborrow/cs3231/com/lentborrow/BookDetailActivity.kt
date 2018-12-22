@@ -275,7 +275,9 @@ class BookDetailActivity : AppCompatActivity() {
             })
         }
 
-        amController.setMain(this).go()
+        //amController.setMain(this).go()
+        //go back to last page.
+        finish()
 
     }
 
