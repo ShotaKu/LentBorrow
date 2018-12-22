@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         log.logOut()
         amController.setLoginActivity(this).go()
         finish()
+
     }
     /*var amController = ActivityMigrationController()
     override fun onCreate(savedInstanceState: Bundle?) {
