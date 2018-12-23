@@ -37,16 +37,35 @@ class Option : AppCompatActivity() {
         setContentView(R.layout.activity_option)
 
 
+        val user = FirebaseAuth.getInstance().currentUser
+        val txtNewPass = passwording.text.toString()
+        val txtNewEmail = emailing.text.toString()
 
-
-        mAuth = FirebaseAuth.getInstance()
-
-        btnResetPassword.setOnClickListener {
-            val database = FirebaseDatabase.getInstance();
-            val myRef = database.getReference("password");
-            val c = passwording.text.toString()
-            myRef.setValue(c)
+        user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                println("Update Success")
+            } else {
+                println("Error Update")
+            }
         }
+        user!!.updateEmail(txtNewEmail).addOnCompleteListener {task->
+            if(task.isSuccessful) {
+                println("Update Success")
+            }else{
+                println("Error Update")
+            }
+
+        }
+
+//        mAuth = FirebaseAuth.getInstance()
+//
+//        btnResetPassword.setOnClickListener {
+//            val database = FirebaseDatabase.getInstance();
+//            val myRef = database.getReference("password");
+//            val c = passwording.text.toString()
+//            myRef.setValue(c)
+//        }
+
     }
 }
 
