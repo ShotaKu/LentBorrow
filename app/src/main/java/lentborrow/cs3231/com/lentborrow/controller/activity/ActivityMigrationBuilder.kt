@@ -29,7 +29,7 @@ open class ActivityMigrationBuilder{
             ,"RequestLog" to RequestLogActivity::class.java
             ,"Main" to MainActivity::class.java
             //@TODO: To Navin -> Please edit as RequestDetailActivity::class.java when you finish create the activity .kt
-            ,"RequestDetail" to RequestLogActivity::class.java
+            ,"RequestDetail" to RequestDetailActivity::class.java
     )
 
     protected fun set(context: Context,activityName: String){
