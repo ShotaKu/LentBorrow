@@ -71,7 +71,7 @@ class RequestController :DatabaseController(){
     }
 
     fun filterByWaitingRequests(requests:ArrayList<Request>):ArrayList<Request>{
-        return filterBy(requests,"wait for check")
+        return filterBy(requests,"rejected")
     }
 
     private fun filterBy(requests:ArrayList<Request>,status:String):ArrayList<Request>{

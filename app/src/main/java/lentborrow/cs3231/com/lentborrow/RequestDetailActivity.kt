@@ -19,6 +19,7 @@ import lentborrow.cs3231.com.lentborrow.R.id.tradeOn
 import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.database.book.Book
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
+import lentborrow.cs3231.com.lentborrow.controller.database.request.Request
 import lentborrow.cs3231.com.lentborrow.controller.database.request.RequestController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.customCell.requestCell.NewRequestAdapter
@@ -39,6 +40,8 @@ class RequestDetailActivity : AppCompatActivity() {
     val RESULT_FROM_TIMEPICKER = 2
     var amController = ActivityMigrationController()
     var bookID = ""
+    var tradeId  = ""
+    var requests = ArrayList<Request>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,14 +67,17 @@ class RequestDetailActivity : AppCompatActivity() {
 
 
         getBook(bookID)
+        getBook(tradeId)
 
 
         refuseRequest.setOnClickListener {
-            Toast.makeText(this, "rejected", Toast.LENGTH_LONG)
+            rCon.filterByRejectedRequests(requests)
+
+
 
         }
         acceptRequest.setOnClickListener {
-            Toast.makeText(this, "accepted", Toast.LENGTH_LONG)
+            rCon.filterByAcceptedRequests(requests)
 
 
 //            rCon.getRequestsByRequesterID(lvCon.getID(), { requests ->
@@ -128,7 +134,7 @@ class RequestDetailActivity : AppCompatActivity() {
 
 
                 tradeAt.text = "Trade at " + book.locate
-                tradeOn.text = "Trade on"+book.
+
 
 
 
