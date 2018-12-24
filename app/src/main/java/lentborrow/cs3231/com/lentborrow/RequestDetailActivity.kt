@@ -96,36 +96,14 @@ class RequestDetailActivity : AppCompatActivity() {
 
                 bCon.getBookByID(bookID, { book ->
                     if (book != null) {
-                        showedBook = book
                         showBookDetail(book)
-                        val lvCon = LocalValueController(this)
-
-                        var isUsers = lvCon.getID() == book.lentBy
-
-                        if (!isUsers) {
-                            rCon.getRequestsByBookID(book.id, { requests ->
-                                var isRequested = false;
-                                for (request in requests) {
-                                    if (request.requesterID == lvCon.getID()) {
-                                        if (request.status == "wait for check") {
-                                            isRequested = true;
-                                            break
-                                        }
-                                    }
-                                }
-
-                            }, { error ->
-                                MessageController(this).showToast("Error when get request information")
-                            })
-                        } else {
-
-                        }
                     } else
                         MessageController(this).showToast("Book detail broken")
                 }, { error ->
                     MessageController(this).showToast("Book not found")
                 })
             }
+
 
             fun showBookDetail(book: Book) {
 
