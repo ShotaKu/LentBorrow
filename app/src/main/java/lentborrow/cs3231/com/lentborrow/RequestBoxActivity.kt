@@ -17,7 +17,7 @@ class RequestBoxActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_box)
-        title = "Request Log"
+        title = "Request Box"
         val mCon = MessageController(this)
 
         val rCon = RequestController()
