@@ -15,6 +15,8 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider.getCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_option.*
@@ -38,24 +40,35 @@ class Option : AppCompatActivity() {
 
 
         val user = FirebaseAuth.getInstance().currentUser
-        val txtNewPass = passwording.text.toString()
-        val txtNewEmail = emailing.text.toString()
 
-        user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                println("Update Success")
-            } else {
-                println("Error Update")
-            }
-        }
-        user!!.updateEmail(txtNewEmail).addOnCompleteListener {task->
-            if(task.isSuccessful) {
-                println("Update Success")
-            }else{
-                println("Error Update")
-            }
 
-        }
+        btnResetPassword.setOnClickListener {
+            val txtNewPass = passwording.text.toString()
+
+            user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    println("Update Success")
+                } else {
+                    println("Error Update")
+                }
+            }
+            btnEmail.setOnClickListener {
+                val txtNewEmail = emailing.text.toString()
+                user!!.updateEmail(txtNewEmail).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        println("Update Success")
+                    } else {
+                        println("Error Update")
+                    }
+                    btnUser.setOnClickListener {
+                        val c = username.text.toString()
+                        val database = FirebaseDatabase.getInstance();
+                        val myRef = database.getReference("User");
+
+                        myRef.child("userName").setValue(c)
+
+                    }
+
 
 //        mAuth = FirebaseAuth.getInstance()
 //
@@ -66,6 +79,9 @@ class Option : AppCompatActivity() {
 //            myRef.setValue(c)
 //        }
 
+                }
+            }
+        }
     }
 }
 
