@@ -12,6 +12,12 @@ class RequestController :DatabaseController(){
         return request
     }
 
+    fun update(request: Request):Request{
+        val requestID = request.requestID
+        setObject("Request/"+requestID,request.getDatabaseForm())
+        return  request;
+    }
+
     fun getRequestsByRequesterID(requesterID:String,successCallback: (requests:ArrayList<Request>) -> Unit   // Unit = void
                                 , failedCallback:(error: DatabaseError) -> Unit){
         find("Request",{ snapShot: DataSnapshot ->
@@ -53,13 +59,18 @@ class RequestController :DatabaseController(){
         })
     }
 
-
-
-
-
     fun getRequestByRequestID(requestID:String,successCallback: (request:Request) -> Unit   // Unit = void
                               , failedCallback:(error: DatabaseError) -> Unit){
-
+        find("Request",{ snapShot: DataSnapshot ->
+            searchRequestByID(requestID,snapShot)
+        },{snapShots ->
+            if(!snapShots.isEmpty())
+                successCallback(snapShotRequestAdapter(snapShots)[0])
+            else
+                successCallback(Request());
+        },{error ->
+            failedCallback(error)
+        })
     }
 
     fun filterByAcceptedRequests(requests:ArrayList<Request>):ArrayList<Request>{
@@ -85,8 +96,6 @@ class RequestController :DatabaseController(){
         return result
     }
 
-
-
     private fun searchRequestByRequesterID(requesterID: String,snapshot: DataSnapshot):Boolean{
         return search("requesterID", requesterID, snapshot)
     }
@@ -97,6 +106,10 @@ class RequestController :DatabaseController(){
 
     private fun searchRequestByOwnerID(ownerID:String,snapshot: DataSnapshot):Boolean{
         return search("ownerID", ownerID, snapshot)
+    }
+
+    private fun searchRequestByID(requestID:String,snapshot: DataSnapshot):Boolean{
+        return requestID == snapshot.key.toString()
     }
 
     private fun search(key: String, value:String, snapshot: DataSnapshot):Boolean{
