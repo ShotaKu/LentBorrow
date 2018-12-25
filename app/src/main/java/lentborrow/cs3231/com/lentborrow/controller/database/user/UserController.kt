@@ -13,6 +13,12 @@ class UserController : DatabaseController(){
         return user
     }
 
+    fun update(user: User):User{
+        val userID = user.userID
+        setObject("User/"+userID,user.getDatabaseForm())
+        return user;
+    }
+
     fun getUserByEmail(email:String, successCallback: (user: User) -> Unit   // Unit = void
     , failedCallback:(error: DatabaseError) -> Unit){
 
