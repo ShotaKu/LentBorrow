@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_request_box.*
 import kotlinx.android.synthetic.main.activity_request_detail.*
 import lentborrow.cs3231.com.lentborrow.controller.database.book.BookController
+import lentborrow.cs3231.com.lentborrow.controller.database.request.Request
 import lentborrow.cs3231.com.lentborrow.controller.database.request.RequestController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.customCell.requestCell.NewRequestAdapter
@@ -16,6 +17,7 @@ import lentborrow.cs3231.com.lentborrow.generic.MessageController
 
 class RequestDetailActivity : AppCompatActivity() {
 
+    var requestData:Request? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_detail)
@@ -26,6 +28,7 @@ class RequestDetailActivity : AppCompatActivity() {
         val rCon = RequestController()
         rCon.getRequestByRequestID(requestID,{ request ->
             if(request != null){
+                requestData = request
                 val bCon = BookController()
                 bCon.getBookByID(request.bookID,{book ->
                     if(book != null){
@@ -37,10 +40,10 @@ class RequestDetailActivity : AppCompatActivity() {
                                 tradeWithDownload.startDownload()
 
                                 yourBook.text = book.name
-                                requesterBook.text = "At\n" + tradeWithBook.name
+                                requesterBook.text = tradeWithBook.name
 
-                                tradeAt.text = book.locate
-                                tradeOn.text = request.date + "\n" + request.time
+                                tradeAt.text = "At\n" + book.locate
+                                tradeOn.text = "on\n"+request.date + "\n" + request.time
                             }
                         },{error ->
                             mCon.showToast(error.message)
@@ -53,6 +56,24 @@ class RequestDetailActivity : AppCompatActivity() {
         },{ error ->
             mCon.showToast(error.message)
         })
+    }
+
+    fun onClickAccept(view:View){
+        update("accepted");
+    }
+
+    fun onClickReject(view: View){
+        update("rejected")
+    }
+
+    fun update(status:String){
+        if(requestData != null){
+            val dataform = requestData!!.getDatabaseForm()
+            val rCon = RequestController()
+            requestData!!.status = status
+            rCon.update(requestData!!)
+            finish()
+        }
     }
 }
 
