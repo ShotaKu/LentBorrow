@@ -43,7 +43,7 @@ class RequestDetailActivity : AppCompatActivity() {
                                 requesterBook.text = tradeWithBook.name
 
                                 tradeAt.text = "At\n" + book.locate
-                                tradeOn.text = "on\n"+request.date + "\n" + request.time
+                                tradeOn.text = "On\n"+request.date + "\n" + request.time
                             }
                         },{error ->
                             mCon.showToast(error.message)
