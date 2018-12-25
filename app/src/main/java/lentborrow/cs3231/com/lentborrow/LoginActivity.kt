@@ -1,5 +1,6 @@
 package lentborrow.cs3231.com.lentborrow
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -15,21 +16,27 @@ import lentborrow.cs3231.com.lentborrow.controller.database.user.UserController
 import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
 import com.google.firebase.auth.FirebaseUser
-
+import lentborrow.cs3231.com.lentborrow.generic.Option
 
 
 class LoginActivity : AppCompatActivity() {
     var fbAuth = FirebaseAuth.getInstance()
 
+
     //Awake
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+
         val currentUser = fbAuth.getCurrentUser()
         if (currentUser != null) {
             val amCon = ActivityMigrationController()
+
             amCon.setMain(this).go()
+
             finish()
+
         } else {
             logOut()
         }

@@ -37,37 +37,49 @@ class Option : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_option)
-
-
         val user = FirebaseAuth.getInstance().currentUser
 
 
+
+
         btnResetPassword.setOnClickListener {
+
             val txtNewPass = passwording.text.toString()
 
-            user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    println("Update Success")
-                } else {
-                    println("Error Update")
-                }
-            }
+
+
+
+
+            user?.updatePassword(txtNewPass)
+                    ?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            var intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+
             btnEmail.setOnClickListener {
+
+
                 val txtNewEmail = emailing.text.toString()
-                user!!.updateEmail(txtNewEmail).addOnCompleteListener { task ->
+                user?.updateEmail(txtNewEmail)?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        println("Update Success")
-                    } else {
-                        println("Error Update")
+                        var intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
                     }
-                    btnUser.setOnClickListener {
-                        val c = username.text.toString()
-                        val database = FirebaseDatabase.getInstance();
-                        val myRef = database.getReference("User");
+                }
 
-                        myRef.child("userName").setValue(c)
+                btnUser.setOnClickListener {
+                    val c = username.text.toString()
+                    val database = FirebaseDatabase.getInstance();
+                    val myRef = database.getReference("User");
 
-                    }
+                    myRef.child("userName").setValue(c)
+                    var intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+
+
+                }
 
 
 //        mAuth = FirebaseAuth.getInstance()
@@ -79,11 +91,14 @@ class Option : AppCompatActivity() {
 //            myRef.setValue(c)
 //        }
 
-                }
             }
         }
     }
 }
+
+
+
+
 
 //            val email = email_login.text.toString()
 //

@@ -32,20 +32,25 @@ class RequestDetailActivity : AppCompatActivity() {
     var bCon = BookController()
     val rCon = RequestController()
     val mCon = MessageController(this)
-    val lvCon = LocalValueController(this)
+
+
     var showedBook: Book? = null
     var userBooks: ArrayList<Book> = arrayListOf()
     val cal = Calendar.getInstance()
     val RESULT_FROM_DATEPICKER = 1
     val RESULT_FROM_TIMEPICKER = 2
     var amController = ActivityMigrationController()
-    var bookID = ""
-    var tradeId  = ""
+//    var bookID = ""
+//    var tradeId = ""
+
     var requests = ArrayList<Request>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_detail)
+
+        var bookID = intent.getStringExtra("bookID")
+        var tradeId = intent.getStringExtra("requestID")
 
 
         val text = tradeOn
@@ -55,13 +60,16 @@ class RequestDetailActivity : AppCompatActivity() {
         val h = cal.get(Calendar.HOUR)
         val m = cal.get(Calendar.MINUTE)
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            text.text = year.toString() + "-" + monthOfYear + "-" + dayOfMonth
+
 
         }, yea, mon, date)
-        dpd.show()
+
         val tpd = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hour, min ->
-            text.text = hour.toString() + ":" + min.toString()
+
         }, h, m, false)
+
+        tradeOn.text = yea.toString() + "-" + mon + "-" + date + h.toString() + ":" + m.toString()
+        dpd.show()
         tpd.show()
 
 

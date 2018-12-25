@@ -11,6 +11,7 @@ import lentborrow.cs3231.com.lentborrow.customCell.requestCell.NewRequestAdapter
 import lentborrow.cs3231.com.lentborrow.customCell.requestCell.RequestAdapter
 import lentborrow.cs3231.com.lentborrow.generic.MessageController
 
+
 class RequestBoxActivity : AppCompatActivity() {
 
     //@ToDo MEMO: Use this activity as Request Log Activity

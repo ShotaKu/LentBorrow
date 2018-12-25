@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.auth.LoginController
 import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseController
+import lentborrow.cs3231.com.lentborrow.generic.Option
 
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         amController = ActivityMigrationController()
+
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         //setSupportActionBar(toolbar)
