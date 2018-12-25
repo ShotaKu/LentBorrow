@@ -61,8 +61,18 @@ class Option : AppCompatActivity() {
 
     fun onClickChangeUserName(view:View){
         val newUserName = userNaming.text.toString()
+        val mCon = MessageController(this)
         if(!newUserName.isEmpty()){
             val uCon = UserController()
+            val lvCon = LocalValueController(this);
+            uCon.getUserByID(lvCon.getID(),{user ->
+                user.userName = newUserName
+                uCon.update(user);
+                mCon.showToast("User name updated!")
+            },{error ->
+                mCon.showToast("Fail to get user data. Please login again.")
+                logout()
+            })
             //uCon
         }
     }
@@ -91,5 +101,6 @@ class Option : AppCompatActivity() {
         lCon.logOut()
         val amCon = ActivityMigrationController()
         amCon.setLoginActivity(this).go();
+        finish()
     }
 }
