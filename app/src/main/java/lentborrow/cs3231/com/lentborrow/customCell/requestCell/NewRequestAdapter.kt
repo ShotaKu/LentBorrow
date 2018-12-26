@@ -28,30 +28,35 @@ class NewRequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter
         val request = requests[cellNumber]
         val mCon = MessageController(viewHolder.itemView.context)
 
-        val id = request.bookID
-        val tradeWithID = request.tradeWithID
-        viewHolder.bCon.getBookByID(id, { book ->
-            viewHolder.bCon.getBookByID(tradeWithID, { tradeWith ->
+        viewHolder.bCon.getBookByID(request.bookID, { book ->
+            if (book != null) {
                 viewHolder.bookName.text = book!!.name
-                viewHolder.tradeWithName.text = tradeWith!!.name
-                viewHolder.date.text = request.date
-                viewHolder.time.text = request.time
                 ImageDownloader(book!!.imageURL, viewHolder.bookImage).startDownload() {
                     viewHolder.load1.visibility = View.INVISIBLE
                 }
-                ImageDownloader(tradeWith!!.imageURL, viewHolder.tradeWithImage).startDownload() {
-                    viewHolder.load2.visibility = View.INVISIBLE
-                }
-                viewHolder.itemView.setOnClickListener(){
-                    //ActivityMigrationController().setRequestBoxActivity()
-                    ActivityMigrationController()
-                            .setRequestDetail(viewHolder.itemView.context)
-                            .pass("requestID", request.requestID)
-                            .go()
-                }
-            }, {
-                mCon.showToast("Failed to load book information")
-            })
+                viewHolder.bCon.getBookByID(request.tradeWithID, { tradeWith ->
+
+                    if (tradeWith != null) {
+                        viewHolder.tradeWithName.text = tradeWith!!.name
+                        viewHolder.date.text = request.date
+                        viewHolder.time.text = request.time
+
+                        ImageDownloader(tradeWith!!.imageURL, viewHolder.tradeWithImage).startDownload() {
+                            viewHolder.load2.visibility = View.INVISIBLE
+                        }
+                        viewHolder.itemView.setOnClickListener() {
+                            //ActivityMigrationController().setRequestBoxActivity()
+                            ActivityMigrationController()
+                                    .setRequestDetail(viewHolder.itemView.context)
+                                    .pass("requestID", request.requestID)
+                                    .go()
+                        }
+                    }
+                }, {
+                    mCon.showToast("Failed to load book information")
+                })
+            }
+
         }, {
             mCon.showToast("Failed to load book information")
         })

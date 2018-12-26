@@ -1,25 +1,17 @@
 package lentborrow.cs3231.com.lentborrow.generic
 
-import android.app.ProgressDialog
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.EmailAuthProvider.getCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_option.*
-import lentborrow.cs3231.com.lentborrow.LoginActivity
 import lentborrow.cs3231.com.lentborrow.R
+import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
+import lentborrow.cs3231.com.lentborrow.controller.auth.LoginController
+import lentborrow.cs3231.com.lentborrow.controller.database.user.UserController
+import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
 
 class Option : AppCompatActivity() {
 
@@ -30,32 +22,50 @@ class Option : AppCompatActivity() {
 
     //Firebase references
 
-
+    val lCon = LoginController()
     private var mAuth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_option)
 
+        val isLogin = lCon.isLogedin()
+        val lvCon = LocalValueController(this)
+        val email = lvCon.getEmail()
+        val password = lvCon.getPassword()
+        if (isLogin) {
+            lCon.Login(this, email, password, { email, password ->
+                val user = FirebaseAuth.getInstance().currentUser
+                if (user != null) {
 
-        val user = FirebaseAuth.getInstance().currentUser
-        val txtNewPass = passwording.text.toString()
-        val txtNewEmail = emailing.text.toString()
+                } else {
+                    getUserFailed()
+                }
+            }, { task ->
 
-        user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                println("Update Success")
-            } else {
-                println("Error Update")
-            }
+            })
+        } else {
+            getUserFailed()
         }
-        user!!.updateEmail(txtNewEmail).addOnCompleteListener {task->
-            if(task.isSuccessful) {
-                println("Update Success")
-            }else{
-                println("Error Update")
-            }
 
-        }
+//        val user = FirebaseAuth.getInstance().currentUser
+//        val txtNewPass = passwording.text.toString()
+//        val txtNewEmail = emailing.text.toString()
+//
+//        user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                println("Update Success")
+//            } else {
+//                println("Error Update")
+//            }
+//        }
+//        user!!.updateEmail(txtNewEmail).addOnCompleteListener {task->
+//            if(task.isSuccessful) {
+//                println("Update Success")
+//            }else{
+//                println("Error Update")
+//            }
+//
+//        }
 
 //        mAuth = FirebaseAuth.getInstance()
 //
@@ -67,7 +77,81 @@ class Option : AppCompatActivity() {
 //        }
 
     }
+
+    fun email(v: View) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val txtNewEmail = emailing.text.toString()
+        if (user != null) {
+            user!!.updateEmail(txtNewEmail).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(txtNewEmail, "Update Success")
+                    val uCon = UserController()
+                    val lCon = LocalValueController(this)
+                    val email = lCon.getEmail()
+                    uCon.getUserByEmail(email,{user ->
+                        user.email = txtNewEmail
+                        uCon.update(user)
+                        logout()
+                    },{error ->
+                        Toast.makeText(this,"Error",Toast.LENGTH_LONG)
+                        logout()
+                    })
+
+                } else {
+                    Log.d(txtNewEmail, "Error Update")
+                    logout()
+
+                }
+            }
+        }
+
+    }
+
+    fun password(v: View) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val txtNewPass = passwording.text.toString()
+        if (user != null) {
+            user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    println("Update Success")
+                    logout()
+                } else {
+                    println("Error Update")
+
+
+                }
+            }
+        }
+    }
+    fun username(v:View){
+        val username = usernaming.text.toString()
+
+        if(!username.isEmpty()){
+            val uCon = UserController()
+            val lCon = LocalValueController(this)
+            val id = lCon.getID()
+            uCon.getUserByEmail(lCon.getEmail(),{user ->
+                user.userName = username
+                uCon.update(user)
+            },{error ->
+Toast.makeText(this,"Error",Toast.LENGTH_LONG)
+            })
+
+        }
+    }
+    fun getUserFailed() {
+        val mCon = MessageController(this)
+        mCon.showToast("Get user failed. Logout from app.")
+        logout()
+    }
+    fun logout(){
+        lCon.logOut()
+        val amCon = ActivityMigrationController()
+        amCon.setLoginActivity(this).go();
+        finish()
+    }
 }
+
 
 //            val email = email_login.text.toString()
 //

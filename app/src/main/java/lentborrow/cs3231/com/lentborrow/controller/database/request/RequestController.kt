@@ -12,6 +12,12 @@ class RequestController :DatabaseController(){
         return request
     }
 
+    fun update(request: Request):Request{
+        val requestID = request.requestID
+        setObject("Request/"+requestID,request.getDatabaseForm())
+        return  request;
+    }
+
     fun getRequestsByRequesterID(requesterID:String,successCallback: (requests:ArrayList<Request>) -> Unit   // Unit = void
                                 , failedCallback:(error: DatabaseError) -> Unit){
         find("Request",{ snapShot: DataSnapshot ->
@@ -73,13 +79,24 @@ class RequestController :DatabaseController(){
 
     fun getRequestByRequestID(requestID:String,successCallback: (request:Request) -> Unit   // Unit = void
                               , failedCallback:(error: DatabaseError) -> Unit){
-
+        find("Request",{ snapShot: DataSnapshot ->
+            searchRequestByID(requestID,snapShot)
+        },{snapShots ->
+            if(!snapShots.isEmpty())
+                successCallback(snapShotRequestAdapter(snapShots)[0])
+            else
+                successCallback(Request());
+        },{error ->
+            failedCallback(error)
+        })
     }
 
     fun filterByAcceptedRequests(requests:ArrayList<Request>):ArrayList<Request>{
         return filterBy(requests,"accepted")
     }
-
+    private fun searchRequestByID(requestID:String,snapshot: DataSnapshot):Boolean{
+        return requestID == snapshot.key.toString()
+    }
     fun filterByRejectedRequests(requests:ArrayList<Request>):ArrayList<Request>{
         return filterBy(requests,"rejected")
     }

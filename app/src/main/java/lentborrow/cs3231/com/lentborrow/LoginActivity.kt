@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
                     /*amCon.setRequestBoxActivity(this)
                             .pass("status","waiting").go()*/
                     amCon.setMain(this).go()
-                    finish()
+                    //finish()
 
 //                    amCon.setRequestBoxActivity(this)
 //                            .pass("email",email)
