@@ -2,6 +2,7 @@ package lentborrow.cs3231.com.lentborrow.generic
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -27,6 +28,9 @@ class Option : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_option)
+
+//        val toolbar = findViewById(R.id.toolbar_main) as Toolbar;
+//        setSupportActionBar(toolbar);
 
         val isLogin = lCon.isLogedin()
         val lvCon = LocalValueController(this)
@@ -88,12 +92,12 @@ class Option : AppCompatActivity() {
                     val uCon = UserController()
                     val lCon = LocalValueController(this)
                     val email = lCon.getEmail()
-                    uCon.getUserByEmail(email,{user ->
+                    uCon.getUserByEmailOnce(email, { user ->
                         user.email = txtNewEmail
                         uCon.update(user)
                         logout()
-                    },{error ->
-                        Toast.makeText(this,"Error",Toast.LENGTH_LONG)
+                    }, { error ->
+                        Toast.makeText(this, "Error", Toast.LENGTH_LONG)
                         logout()
                     })
 
@@ -123,28 +127,31 @@ class Option : AppCompatActivity() {
             }
         }
     }
-    fun username(v:View){
+
+    fun username(v: View) {
         val username = usernaming.text.toString()
 
-        if(!username.isEmpty()){
+        if (!username.isEmpty()) {
             val uCon = UserController()
             val lCon = LocalValueController(this)
-            val id = lCon.getID()
-            uCon.getUserByEmail(lCon.getEmail(),{user ->
+            uCon.getUserByEmailOnce(lCon.getEmail(), { user ->
                 user.userName = username
                 uCon.update(user)
-            },{error ->
-Toast.makeText(this,"Error",Toast.LENGTH_LONG)
+                finish()
+            }, { error ->
+                Toast.makeText(this, "Error", Toast.LENGTH_LONG)
             })
 
         }
     }
+
     fun getUserFailed() {
         val mCon = MessageController(this)
         mCon.showToast("Get user failed. Logout from app.")
         logout()
     }
-    fun logout(){
+
+    fun logout() {
         lCon.logOut()
         val amCon = ActivityMigrationController()
         amCon.setLoginActivity(this).go();
