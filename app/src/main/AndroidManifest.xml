@@ -25,16 +25,16 @@
         <activity android:name=".RequestDetailActivity" />
         <activity android:name=".BookDetailActivity" />
         <activity android:name=".UserDetailActivity" />
-        <activity android:name=".TradeScheduleActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".UserBookActivity" />
         <activity android:name=".AddBookActivity" />
         <activity android:name=".RequestLogActivity" />
-        <activity android:name=".EditBooK" />
-        <activity android:name=".generic.EditBookActivity" />
         <activity android:name=".EditBookActivity" />
-        <activity android:name=".generic.Option"></activity>
+        <activity android:name=".generic.Option" />
+        <activity
+            android:name=".TradeScheduleActivity"
+            android:label="@string/title_activity_trade_schedule"></activity>
     </application>
 
 </manifest>
