@@ -36,8 +36,9 @@ class RequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter<Re
                             var tradeWith = tradeWithBook.name
                             viewHolder.bookName.text = name
                             viewHolder.tradeWith.text = "Trade with: " + tradeWith
-                            viewHolder.reqester.text = "Sent from " + requester.userName
+                            viewHolder.reqester.text = "Request from " + requester.userName
                             viewHolder.tradeDate.text = requests[p1].date + " " + requests[p1].time
+                            viewHolder.location.text = book.locate
                             val downloadImage = ImageDownloader(tradeWithBook.imageURL, viewHolder.image)
                             downloadImage.startDownload{
                                 viewHolder.loading.visibility = View.INVISIBLE
@@ -73,5 +74,6 @@ class RequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter<Re
         val status = v.requestStatus_requestCell
         val image = v.tradeWithImage_requestCell
         val loading = v.loading_reqestCell
+        val location = v.tradeAt_requestCell
     }
 }

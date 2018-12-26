@@ -56,11 +56,11 @@ class BookDetailActivity : AppCompatActivity() {
 
                 if(!isUsers){
                     rCon.getRequestsByBookID(book.id, { requests ->
-                        var isRequested = false;
+                        var isRequested = false
                         for (request in requests) {
                             if (request.requesterID == lvCon.getID()) {
                                 if (request.status == "wait for check"){
-                                    isRequested = true;
+                                    isRequested = true
                                     break
                                 }
                             }

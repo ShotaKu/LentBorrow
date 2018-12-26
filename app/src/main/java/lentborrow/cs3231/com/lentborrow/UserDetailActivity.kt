@@ -22,7 +22,7 @@ import java.util.*
 
 class UserDetailActivity : AppCompatActivity() {
 
-    var userID = "";
+    var userID = ""
     var lCon: LocalValueController? = null
     val uCon = UserController()
 
@@ -64,7 +64,7 @@ class UserDetailActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0 != null) {
-                    if (!p0!!.isEmpty()) {
+                    if (!p0.isEmpty()) {
                         val amount = p0.toString().toInt()
                         if (amount <= 5) {
                             var star = ""
@@ -86,7 +86,7 @@ class UserDetailActivity : AppCompatActivity() {
                 }
             }
         })
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
 
     fun setUser(user: User) {

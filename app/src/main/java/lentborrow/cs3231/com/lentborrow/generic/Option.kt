@@ -86,7 +86,7 @@ class Option : AppCompatActivity() {
         val user = FirebaseAuth.getInstance().currentUser
         val txtNewEmail = emailing.text.toString()
         if (user != null) {
-            user!!.updateEmail(txtNewEmail).addOnCompleteListener { task ->
+            user.updateEmail(txtNewEmail).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(txtNewEmail, "Update Success")
                     val uCon = UserController()
@@ -115,7 +115,7 @@ class Option : AppCompatActivity() {
         val user = FirebaseAuth.getInstance().currentUser
         val txtNewPass = passwording.text.toString()
         if (user != null) {
-            user!!.updatePassword(txtNewPass).addOnCompleteListener { task ->
+            user.updatePassword(txtNewPass).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     println("Update Success")
                     logout()
@@ -154,7 +154,7 @@ class Option : AppCompatActivity() {
     fun logout() {
         lCon.logOut()
         val amCon = ActivityMigrationController()
-        amCon.setLoginActivity(this).go();
+        amCon.setLoginActivity(this).go()
         finish()
     }
 }

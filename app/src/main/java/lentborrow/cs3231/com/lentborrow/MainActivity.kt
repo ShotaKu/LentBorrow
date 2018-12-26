@@ -9,10 +9,17 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.content_main.*
 import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.auth.LoginController
+import lentborrow.cs3231.com.lentborrow.controller.database.request.RequestController
+import lentborrow.cs3231.com.lentborrow.controller.localValue.LocalValueController
+import lentborrow.cs3231.com.lentborrow.customCell.requestCell.RequestAdapter
+import lentborrow.cs3231.com.lentborrow.generic.MessageController
 
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
@@ -38,7 +45,28 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar!!.hide();
+        supportActionBar!!.hide()
+
+        val mCon = MessageController(this)
+        val rCon = RequestController()
+        val lvCon = LocalValueController(this)
+        //nav_header_textView.text = lvCon.getEmail()
+
+        rCon.getRequestsByOwnerID(lvCon.getID(), { requests ->
+            var filtered = rCon.filterByAcceptedRequests(requests)
+
+            if (0 < filtered.count()) {
+                val rView = tradeSceduleList
+                rView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+                var adapter = RequestAdapter(filtered)
+                rView.adapter = adapter
+            } else {
+                mCon.showToast("No trading")
+            }
+        }, { error ->
+            mCon.showToast("Error happen when get request.")
+        })
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
