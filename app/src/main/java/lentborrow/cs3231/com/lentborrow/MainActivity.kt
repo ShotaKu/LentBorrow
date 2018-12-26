@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar!!.hide();
+        supportActionBar!!.hide()
 
         val mCon = MessageController(this)
         val rCon = RequestController()

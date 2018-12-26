@@ -37,9 +37,9 @@ class RequestDetailActivity : AppCompatActivity() {
                     if (book != null) {
                         bCon.getBookByID(request.tradeWithID, { Trade: Book? ->
                             if (Trade != null) {
-                                val bookimage = ImageDownloader(book!!.imageURL, yourBookImage)
+                                val bookimage = ImageDownloader(book.imageURL, yourBookImage)
                                 bookimage.startDownload()
-                                val requestimage = ImageDownloader(Trade!!.imageURL, requesterBookImage)
+                                val requestimage = ImageDownloader(Trade.imageURL, requesterBookImage)
                                 requestimage.startDownload()
                                 requesterBook.text = Trade.name.toString()
                                 yourBook.text = book.name

@@ -30,21 +30,21 @@ class NewRequestAdapter(val requests: ArrayList<Request>) : RecyclerView.Adapter
 
         viewHolder.bCon.getBookByID(request.bookID, { book ->
             if (book != null) {
-                viewHolder.bookName.text = book!!.name
-                ImageDownloader(book!!.imageURL, viewHolder.bookImage).startDownload() {
+                viewHolder.bookName.text = book.name
+                ImageDownloader(book.imageURL, viewHolder.bookImage).startDownload {
                     viewHolder.load1.visibility = View.INVISIBLE
                 }
                 viewHolder.bCon.getBookByID(request.tradeWithID, { tradeWith ->
 
                     if (tradeWith != null) {
-                        viewHolder.tradeWithName.text = tradeWith!!.name
+                        viewHolder.tradeWithName.text = tradeWith.name
                         viewHolder.date.text = request.date
                         viewHolder.time.text = request.time
 
-                        ImageDownloader(tradeWith!!.imageURL, viewHolder.tradeWithImage).startDownload() {
+                        ImageDownloader(tradeWith.imageURL, viewHolder.tradeWithImage).startDownload {
                             viewHolder.load2.visibility = View.INVISIBLE
                         }
-                        viewHolder.itemView.setOnClickListener() {
+                        viewHolder.itemView.setOnClickListener {
                             //ActivityMigrationController().setRequestBoxActivity()
                             ActivityMigrationController()
                                     .setRequestDetail(viewHolder.itemView.context)

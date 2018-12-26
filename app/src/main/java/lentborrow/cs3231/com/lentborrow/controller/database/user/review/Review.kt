@@ -8,7 +8,7 @@ class Review() {
     var senderID: String = ""
     var postOn: String = ""
     var content: String = ""
-    var stars: Int = 0;
+    var stars: Int = 0
 
     constructor(senderID: String, postOn: String, content: String, stars: Int) : this() {
         this.senderID = senderID
@@ -18,11 +18,11 @@ class Review() {
     }
 
     constructor(id: String, senderID: String, postOn: String, content: String, stars: Int) : this(senderID, postOn, content, stars) {
-        this.id = id;
+        this.id = id
     }
 
     fun getDatabaseForm(): DatabaseForm {
-        return databaseForm(senderID, postOn, content, stars);
+        return databaseForm(senderID, postOn, content, stars)
     }
 
     data class databaseForm(val senderID: String, val postOn: String, val content: String, val stars: Int) : DatabaseForm()
@@ -35,7 +35,7 @@ class Review() {
             val content = snapShot.child("content").value.toString()
             val stars = snapShot.child("stars").value.toString().toInt()
             val result = Review(id, senderID, postOn, content, stars)
-            return result;
+            return result
         }
     }
 }

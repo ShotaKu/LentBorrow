@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val currentUser = fbAuth.getCurrentUser()
+        val currentUser = fbAuth.currentUser
         if (currentUser != null) {
             val amCon = ActivityMigrationController()
             amCon.setMain(this).go()

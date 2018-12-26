@@ -15,7 +15,7 @@ class RequestController :DatabaseController(){
     fun update(request: Request):Request{
         val requestID = request.requestID
         setObject("Request/"+requestID,request.getDatabaseForm())
-        return  request;
+        return  request
     }
 
     fun getRequestsByRequesterID(requesterID:String,successCallback: (requests:ArrayList<Request>) -> Unit   // Unit = void
@@ -85,7 +85,7 @@ class RequestController :DatabaseController(){
             if(!snapShots.isEmpty())
                 successCallback(snapShotRequestAdapter(snapShots)[0])
             else
-                successCallback(Request());
+                successCallback(Request())
         },{error ->
             failedCallback(error)
         })

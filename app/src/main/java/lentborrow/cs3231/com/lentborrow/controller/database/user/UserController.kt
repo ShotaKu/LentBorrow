@@ -16,7 +16,7 @@ class UserController : DatabaseController(){
     fun update(user: User):User{
         val userID = user.userID
         setObject("User/"+userID,user.getDatabaseForm())
-        return user;
+        return user
     }
 
     fun getUserByEmail(email:String, successCallback: (user: User) -> Unit   // Unit = void
@@ -52,8 +52,8 @@ class UserController : DatabaseController(){
 
     fun createReview(userID:String,review:Review):Review{
         val reviewID = this.pushObject("User/"+userID+"/Review",review.getDatabaseForm(),false)
-        review.id = reviewID;
-        return review;
+        review.id = reviewID
+        return review
     }
 
     fun searchUserByEmail(email: String, snapShot: DataSnapshot):Boolean{
