@@ -238,7 +238,24 @@ class BookDetailActivity : AppCompatActivity() {
     fun ToDeleteBook(view: View)
     {
 
-       bCon.getRequest(bookID, { book ->
+        val lvCon = LocalValueController(this)
+        rCon.getRequestsByBookID(bookID, { requests ->
+            for (request in requests) {
+                bCon.deleteObject("Request/"+request.requestID)
+            }
+        }, { error ->
+            MessageController(this).showToast("Error while getting book request")
+        })
+
+        rCon.getRequestsBytradeWithID(bookID, { requests ->
+            for (request in requests) {
+                bCon.deleteObject("Request/"+request.requestID)
+            }
+        }, { error ->
+            MessageController(this).showToast("Error while getting book request")
+        })
+
+      /* bCon.getRequest(bookID, { book ->
             if (book != null) {
                 showedBook = book
 
@@ -258,11 +275,9 @@ class BookDetailActivity : AppCompatActivity() {
                 MessageController(this).showToast("Request not found")
         }, { error ->
             MessageController(this).showToast("Book not found")
-        })
+        })*/
 
-        bCon.deleteObject("Book/"+bookID)
 
-        val lvCon = LocalValueController(this)
         val id = lvCon.getID()
         if(!id.isEmpty()){
             bCon.getLendingKey(id,{ keys -> run {
@@ -275,9 +290,12 @@ class BookDetailActivity : AppCompatActivity() {
             })
         }
 
-        //amController.setMain(this).go()
-        //go back to last page.
+        bCon.deleteObject("Book/"+bookID)
+
         finish()
+
+        amController.setMain(this).go()
+        //go back to last page.
 
     }
 
