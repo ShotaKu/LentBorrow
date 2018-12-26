@@ -12,6 +12,10 @@ class ActivityMigrationController() : ActivityMigrationBuilder(){
         return ActivityMigrationController(context,"Login")
     }
 
+    fun setOptionActivity(context: Context): ActivityMigrationBuilder {
+        return ActivityMigrationController(context,"Option")
+    }
+
     fun setRegistrationActivity(context: Context): ActivityMigrationBuilder {
         return ActivityMigrationController(context,"Register")
     }
