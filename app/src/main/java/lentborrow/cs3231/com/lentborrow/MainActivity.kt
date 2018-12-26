@@ -1,23 +1,18 @@
 package lentborrow.cs3231.com.lentborrow
 
+import android.content.Intent
 import android.content.res.Configuration
+import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.Toast
-import android.os.Bundle
-import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener
-import android.view.View
-import kotlinx.android.synthetic.main.activity_search.*
 import lentborrow.cs3231.com.lentborrow.controller.activity.ActivityMigrationController
 import lentborrow.cs3231.com.lentborrow.controller.auth.LoginController
-import lentborrow.cs3231.com.lentborrow.controller.database.DatabaseController
-import lentborrow.cs3231.com.lentborrow.generic.Option
 
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
@@ -85,16 +80,15 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         }
     }
 
-    fun Option()
-    {
+    fun Option() {
         amController.setOptionActivity(this).go()
     }
 
-    fun user(){
-        amController.setUserDetail(this).pass("userID","-LN0-bh6HggS-bPicKJY").go()
+    fun user() {
+        amController.setUserDetail(this).pass("userID", "-LN0-bh6HggS-bPicKJY").go()
     }
 
-    fun search(){
+    fun search() {
         amController.setSearchActivity(this).go()
     }
 
@@ -103,11 +97,11 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         startActivity(intent)
     }
 
-    fun books(){
+    fun books() {
         amController.setUserBook(this).go()
     }
 
-    fun log(){
+    fun log() {
         var log = LoginController()
         log.logOut()
         amController.setLoginActivity(this).go()
