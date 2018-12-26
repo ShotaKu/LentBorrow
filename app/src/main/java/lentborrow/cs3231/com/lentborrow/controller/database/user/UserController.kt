@@ -12,11 +12,13 @@ class UserController : DatabaseController(){
         user.userID = userID
         return user
     }
+
     fun update(user: User):User{
         val userID = user.userID
         setObject("User/"+userID,user.getDatabaseForm())
         return user;
     }
+
     fun getUserByEmail(email:String, successCallback: (user: User) -> Unit   // Unit = void
     , failedCallback:(error: DatabaseError) -> Unit){
 
@@ -25,6 +27,16 @@ class UserController : DatabaseController(){
                 ,{ snapShot -> run {
                     successCallback(dataSnapshotAdapter(snapShot))
                 }}
+                ,failedCallback)
+    }
+    fun getUserByEmailOnce(email:String, successCallback: (user: User) -> Unit   // Unit = void
+                       , failedCallback:(error: DatabaseError) -> Unit){
+
+        OnceFinds("User",
+                { s:DataSnapshot -> searchUserByEmail(email,s) }
+                ,{ snapShot -> run {
+            successCallback(dataSnapshotAdapter(snapShot))
+        }}
                 ,failedCallback)
     }
 
