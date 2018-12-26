@@ -43,9 +43,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        getSupportActionBar()!!.hide();
-//        var intent = Intent(this,Option::class.java)
-//        startActivity(intent)
+        supportActionBar!!.hide();
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
