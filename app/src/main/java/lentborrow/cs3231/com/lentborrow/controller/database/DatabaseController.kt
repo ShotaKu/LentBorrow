@@ -95,10 +95,34 @@ open class DatabaseController {
 
 
     fun finds(path:String, searchCallback: (snapShot:DataSnapshot) -> Boolean
-             , successCallback: (snapShot:DataSnapshot) -> Unit   // Unit = void
-             , notFoundCallback:(error: DatabaseError) -> Unit){
+              , successCallback: (snapShot:DataSnapshot) -> Unit   // Unit = void
+              , notFoundCallback:(error: DatabaseError) -> Unit){
         val myRef = database.getReference(path)
         myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val result = ArrayList<DataSnapshot>(arrayListOf(null))
+                for (snapshot in dataSnapshot.children) {
+                    val result = searchCallback(snapshot!!)
+                    if(result){
+                        successCallback(snapshot)
+                        return
+                    }
+                }
+                notFoundCallback(DatabaseError.fromCode(DatabaseError.UNAVAILABLE))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                notFoundCallback(error)
+            }
+        })
+    }
+
+    fun OnceFinds(path:String, searchCallback: (snapShot:DataSnapshot) -> Boolean
+              , successCallback: (snapShot:DataSnapshot) -> Unit   // Unit = void
+              , notFoundCallback:(error: DatabaseError) -> Unit){
+        val myRef = database.getReference(path)
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val result = ArrayList<DataSnapshot>(arrayListOf(null))
                 for (snapshot in dataSnapshot.children) {
