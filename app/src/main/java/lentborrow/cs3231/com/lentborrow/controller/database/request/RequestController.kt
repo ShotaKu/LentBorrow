@@ -12,6 +12,12 @@ class RequestController :DatabaseController(){
         return request
     }
 
+    fun update(request: Request):Request{
+        val requestID = request.requestID
+        setObject("Request/"+requestID,request.getDatabaseForm())
+        return  request;
+    }
+
     fun getRequestsByRequesterID(requesterID:String,successCallback: (requests:ArrayList<Request>) -> Unit   // Unit = void
                                 , failedCallback:(error: DatabaseError) -> Unit){
         find("Request",{ snapShot: DataSnapshot ->
