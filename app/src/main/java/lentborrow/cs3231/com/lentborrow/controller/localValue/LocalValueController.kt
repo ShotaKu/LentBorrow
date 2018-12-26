@@ -32,7 +32,7 @@ class LocalValueController(context: Context){
     }
 
     fun getEmail(): String {
-        return getString("Email")
+        return getString("email")
     }
 
     fun setEmail(email: String) {
