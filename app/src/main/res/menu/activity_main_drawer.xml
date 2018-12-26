@@ -15,6 +15,9 @@
             android:title="Books" />
         <item android:id="@+id/nav_item_five"
             android:icon="@drawable/ic_drafts_black_24dp"
+            android:title="Option" />
+        <item android:id="@+id/nav_item_six"
+            android:icon="@drawable/ic_drafts_black_24dp"
             android:title="Log Out" />
     </group>
 

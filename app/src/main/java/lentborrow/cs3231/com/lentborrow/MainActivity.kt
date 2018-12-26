@@ -68,7 +68,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
             R.id.nav_item_two -> search()
             R.id.nav_item_three -> user()
             R.id.nav_item_four -> books()
-            R.id.nav_item_five -> log()
+            R.id.nav_item_five -> Option()
+            R.id.nav_item_six -> log()
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -80,6 +81,11 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         } else {
             super.onBackPressed()
         }
+    }
+
+    fun Option()
+    {
+        amController.setOptionActivity(this).go()
     }
 
     fun user(){
