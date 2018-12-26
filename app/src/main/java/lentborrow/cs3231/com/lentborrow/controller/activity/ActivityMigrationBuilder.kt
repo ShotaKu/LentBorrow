@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import lentborrow.cs3231.com.lentborrow.*
+import lentborrow.cs3231.com.lentborrow.generic.Option
 
 open class ActivityMigrationBuilder{
     var intent: Intent? = null
@@ -28,6 +29,7 @@ open class ActivityMigrationBuilder{
             ,"EditBook" to EditBookActivity::class.java
             ,"RequestLog" to RequestLogActivity::class.java
             ,"Main" to MainActivity::class.java
+            ,"Option" to Option::class.java
             //@TODO: To Navin -> Please edit as RequestDetailActivity::class.java when you finish create the activity .kt
             ,"RequestDetail" to RequestDetailActivity::class.java
     )
