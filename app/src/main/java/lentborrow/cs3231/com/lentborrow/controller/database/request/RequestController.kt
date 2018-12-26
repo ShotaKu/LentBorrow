@@ -39,6 +39,20 @@ class RequestController :DatabaseController(){
         })
     }
 
+    fun getRequestsBytradeWithID(bookID: String,successCallback: (requests:ArrayList<Request>) -> Unit   // Unit = void
+                            , failedCallback:(error: DatabaseError) -> Unit){
+        //@TODO
+        find("Request",{ snapShot: DataSnapshot ->
+            searchRequestBytradeWithID(bookID,snapShot)
+        },{snapShots ->
+            //@TODO
+            successCallback(snapShotRequestAdapter(snapShots))
+        },{error ->
+            //@TODO
+            failedCallback(error)
+        })
+    }
+
     fun getRequestsByOwnerID(ownerID:String,successCallback:  (requests:ArrayList<Request>) -> Unit    // Unit = void
                             , failedCallback:(error: DatabaseError) -> Unit){
         //@TODO
@@ -97,6 +111,10 @@ class RequestController :DatabaseController(){
 
     private fun searchRequestByOwnerID(ownerID:String,snapshot: DataSnapshot):Boolean{
         return search("ownerID", ownerID, snapshot)
+    }
+
+    private fun searchRequestBytradeWithID(tradeWithID:String,snapshot: DataSnapshot):Boolean{
+        return search("tradeWithID", tradeWithID, snapshot)
     }
 
     private fun search(key: String, value:String, snapshot: DataSnapshot):Boolean{
