@@ -15,7 +15,7 @@ import lentborrow.cs3231.com.lentborrow.generic.MessageController
 
 class RequestDetailActivity : AppCompatActivity() {
 
-    var requestdata:Request? =null
+    var requestdata: Request? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +43,8 @@ class RequestDetailActivity : AppCompatActivity() {
                                 requestimage.startDownload()
                                 requesterBook.text = Trade.name.toString()
                                 yourBook.text = book.name
-                                tradeAt.text =  "At"+"\n"+book.locate
-                                tradeOn.text = "On"+"\n"+request.time+"\n"+request.date
+                                tradeAt.text = "At" + "\n" + book.locate
+                                tradeOn.text = "On" + "\n" + request.time + "\n" + request.date
 
                             }
 
@@ -64,9 +64,20 @@ class RequestDetailActivity : AppCompatActivity() {
         })
     }
 
-    fun onClickAccept(v:View){
-        if(requestdata!=null){
+    fun onClickAccept(v: View) {
+        if (requestdata != null) {
             requestdata!!.status = "accepted"
+            val request1 = RequestController()
+            request1.update(requestdata!!)
+            finish()
+
+        }
+
+    }
+
+    fun onClickRefuse(v: View) {
+        if (requestdata != null) {
+            requestdata!!.status = "rejected"
             val request1 = RequestController()
             request1.update(requestdata!!)
             finish()
