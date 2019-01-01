@@ -16,6 +16,8 @@ import lentborrow.cs3231.com.lentborrow.generic.MessageController
 class RequestDetailActivity : AppCompatActivity() {
 
     var requestdata: Request? = null
+    var userBook: Book? = null;
+    var tradeWith: Book? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +32,6 @@ class RequestDetailActivity : AppCompatActivity() {
         val bCon = BookController()
 
         rCon.getRequestByRequestID(requestid, { request ->
-
             if (request != null) {
                 requestdata = request
                 bCon.getBookByID(request.bookID, { book: Book? ->
@@ -45,7 +46,8 @@ class RequestDetailActivity : AppCompatActivity() {
                                 yourBook.text = book.name
                                 tradeAt.text = "At" + "\n" + book.locate
                                 tradeOn.text = "On" + "\n" + request.time + "\n" + request.date
-
+                                userBook = book
+                                tradeWith = Trade
                             }
 
 
@@ -65,25 +67,33 @@ class RequestDetailActivity : AppCompatActivity() {
     }
 
     fun onClickAccept(v: View) {
-        if (requestdata != null) {
-            requestdata!!.status = "accepted"
-            val request1 = RequestController()
-            request1.update(requestdata!!)
-            finish()
+        if (tradeWith != null) {
+            if (userBook != null) {
+                if (requestdata != null) {
+                    requestdata!!.status = "accepted"
+                    val request1 = RequestController()
+                    request1.update(requestdata!!)
+                    userBook!!.isBorrowed = true
+                    tradeWith!!.isBorrowed = true
+                    finish()
 
+                }
+            }
         }
-
     }
 
     fun onClickRefuse(v: View) {
-        if (requestdata != null) {
-            requestdata!!.status = "rejected"
-            val request1 = RequestController()
-            request1.update(requestdata!!)
-            finish()
-
+        if (tradeWith != null) {
+            if (userBook != null) {
+                if (requestdata != null) {
+                    requestdata!!.status = "rejected"
+                    val request1 = RequestController()
+                    request1.update(requestdata!!)
+                    tradeWith!!.isUsedForRequest = false
+                    finish()
+                }
+            }
         }
-
     }
 }
 
