@@ -32,7 +32,7 @@ class UserDetailActivity : AppCompatActivity() {
 
         lCon = LocalValueController(this)
         val id = intent.getStringExtra("userID")
-        if (id.isEmpty()) {
+        if (id == null) {
             userID = lCon!!.getID()
             if (!userID.isEmpty()) {
                 uCon.getUserByID(userID, { user ->
