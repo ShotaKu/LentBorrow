@@ -49,6 +49,8 @@ class UserDetailActivity : AppCompatActivity() {
                 userID = user.userID
                 setUser(user)
                 setReview(user)
+                if(user.userID == userID)
+                    hideReviewBox()
             }, { error ->
                 MessageController(this).showToast(error.message)
             })
