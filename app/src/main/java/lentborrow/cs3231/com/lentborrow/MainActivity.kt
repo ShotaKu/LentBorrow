@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
     }
 
     fun user() {
-        amController.setUserDetail(this).pass("userID", "-LN0-bh6HggS-bPicKJY").go()
+        amController.setUserDetail(this).go()
     }
 
     fun search() {
